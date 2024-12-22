@@ -1,0 +1,318 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "idclient"
+      }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "token"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "ArrayGetContrat",
+        "module": "arraylist",
+        "action": "create",
+        "options": {
+          "value": "\n",
+          "schema": [
+            {
+              "type": "text",
+              "name": "num_Contrat"
+            }
+          ]
+        },
+        "meta": [
+          {
+            "type": "text",
+            "name": "num_Contrat"
+          }
+        ],
+        "outputType": "array",
+        "output": false
+      },
+      {
+        "name": "api",
+        "module": "api",
+        "action": "send",
+        "options": {
+          "url": "{{'http://192.168.9.60:8082/api/Contrats/payeur/'+$_GET.idclient}}",
+          "schema": [
+            {
+              "type": "array",
+              "name": "data",
+              "sub": [
+                {
+                  "type": "number",
+                  "name": "numContrat"
+                },
+                {
+                  "type": "text",
+                  "name": "nom"
+                },
+                {
+                  "type": "text",
+                  "name": "adresse"
+                },
+                {
+                  "type": "text",
+                  "name": "adressePhysique"
+                },
+                {
+                  "type": "text",
+                  "name": "numPl"
+                },
+                {
+                  "type": "text",
+                  "name": "phone"
+                },
+                {
+                  "type": "text",
+                  "name": "email"
+                },
+                {
+                  "type": "number",
+                  "name": "payeur"
+                },
+                {
+                  "type": "number",
+                  "name": "utilisateur"
+                },
+                {
+                  "type": "number",
+                  "name": "solde"
+                },
+                {
+                  "type": "number",
+                  "name": "position"
+                },
+                {
+                  "type": "text",
+                  "name": "codeCompteur"
+                },
+                {
+                  "type": "number",
+                  "name": "ps"
+                },
+                {
+                  "type": "text",
+                  "name": "tarif"
+                },
+                {
+                  "type": "text",
+                  "name": "statutContrat"
+                },
+                {
+                  "type": "boolean",
+                  "name": "isEnable"
+                },
+                {
+                  "type": "text",
+                  "name": "image"
+                },
+                {
+                  "type": "text",
+                  "name": "couleur"
+                }
+              ]
+            },
+            {
+              "type": "object",
+              "name": "headers",
+              "sub": [
+                {
+                  "type": "text",
+                  "name": "content-type"
+                },
+                {
+                  "type": "text",
+                  "name": "date"
+                },
+                {
+                  "type": "text",
+                  "name": "server"
+                },
+                {
+                  "type": "text",
+                  "name": "transfer-encoding"
+                }
+              ]
+            }
+          ],
+          "passErrors": false,
+          "headers": {
+            "Authorization": "{{'Bearer '+$_COOKIE.token}}"
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "type": "array",
+            "name": "data",
+            "sub": [
+              {
+                "type": "number",
+                "name": "numContrat"
+              },
+              {
+                "type": "text",
+                "name": "nom"
+              },
+              {
+                "type": "text",
+                "name": "adresse"
+              },
+              {
+                "type": "text",
+                "name": "adressePhysique"
+              },
+              {
+                "type": "text",
+                "name": "numPl"
+              },
+              {
+                "type": "text",
+                "name": "phone"
+              },
+              {
+                "type": "text",
+                "name": "email"
+              },
+              {
+                "type": "number",
+                "name": "payeur"
+              },
+              {
+                "type": "number",
+                "name": "utilisateur"
+              },
+              {
+                "type": "number",
+                "name": "solde"
+              },
+              {
+                "type": "number",
+                "name": "position"
+              },
+              {
+                "type": "text",
+                "name": "codeCompteur"
+              },
+              {
+                "type": "number",
+                "name": "ps"
+              },
+              {
+                "type": "text",
+                "name": "tarif"
+              },
+              {
+                "type": "text",
+                "name": "statutContrat"
+              },
+              {
+                "type": "boolean",
+                "name": "isEnable"
+              },
+              {
+                "type": "text",
+                "name": "image"
+              },
+              {
+                "type": "text",
+                "name": "couleur"
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              },
+              {
+                "type": "text",
+                "name": "transfer-encoding"
+              }
+            ]
+          }
+        ],
+        "outputType": "object"
+      },
+      {
+        "name": "repeat",
+        "module": "core",
+        "action": "repeat",
+        "options": {
+          "repeat": "{{api.data.where('statutContrat', '==', 'ACTIF')}}",
+          "outputFields": [],
+          "exec": {
+            "steps": {
+              "name": "",
+              "module": "arraylist",
+              "action": "add",
+              "options": {
+                "ref": "ArrayGetContrat",
+                "value": {
+                  "num_Contrat": "{{numContrat}}"
+                }
+              }
+            }
+          }
+        },
+        "output": false,
+        "meta": [
+          {
+            "name": "$index",
+            "type": "number"
+          },
+          {
+            "name": "$number",
+            "type": "number"
+          },
+          {
+            "name": "$name",
+            "type": "text"
+          },
+          {
+            "name": "$value",
+            "type": "object"
+          }
+        ],
+        "outputType": "array"
+      },
+      {
+        "name": "Contrat",
+        "module": "arraylist",
+        "action": "value",
+        "options": {
+          "ref": "ArrayGetContrat"
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "num_Contrat",
+            "type": "text"
+          }
+        ],
+        "outputType": "array"
+      }
+    ]
+  }
+}

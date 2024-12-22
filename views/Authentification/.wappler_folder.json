@@ -1,0 +1,26 @@
+{
+  "Login.ejs": {
+    "layoutPage": "LoginLayout",
+    "description": ""
+  },
+  "Register.ejs": {
+    "layoutPage": "LoginLayout",
+    "description": ""
+  },
+  "EmailSendingPage.ejs": {
+    "layoutPage": "LoginLayout",
+    "description": ""
+  },
+  "SetPassword.ejs": {
+    "layoutPage": "EmailLayout",
+    "description": ""
+  },
+  "resetPassword.ejs": {
+    "layoutPage": "LoginLayout",
+    "description": ""
+  },
+  "testpdf.ejs": {
+    "layoutPage": "EmailLayout",
+    "description": ""
+  }
+}

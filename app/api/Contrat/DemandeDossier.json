@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "idcontrat"
+      },
+      {
+        "type": "text",
+        "name": "number"
+      }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "token"
+      },
+      {
+        "type": "text",
+        "name": "idClient"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "",
+      "module": "core",
+      "action": "condition",
+      "options": {
+        "if": "{{$_COOKIE.idClient}}",
+        "then": {
+          "steps": {
+            "name": "api",
+            "module": "api",
+            "action": "send",
+            "options": {
+              "url": "{{'http://192.168.9.60:8082/api/Demandes/'+$_GET.idcontrat+'/'+$_GET.number}}",
+              "headers": {
+                "Authorization": "{{'Bearer '+$_COOKIE.token}}"
+              },
+              "schema": [
+                {
+                  "type": "array",
+                  "name": "data"
+                },
+                {
+                  "type": "object",
+                  "name": "headers"
+                }
+              ]
+            },
+            "output": true,
+            "meta": [
+              {
+                "type": "array",
+                "name": "data"
+              },
+              {
+                "type": "object",
+                "name": "headers"
+              }
+            ],
+            "outputType": "object"
+          }
+        },
+        "else": {
+          "steps": {
+            "name": "Unauthorized",
+            "module": "core",
+            "action": "response",
+            "options": {
+              "data": "Unauthorized",
+              "status": 401
+            }
+          }
+        }
+      },
+      "outputType": "boolean"
+    }
+  }
+}

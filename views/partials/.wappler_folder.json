@@ -1,0 +1,18 @@
+{
+  "GenFacture.ejs": {
+    "description": ""
+  },
+  "contratDetails.ejs": {
+    "description": ""
+  },
+  "GenFactureation.ejs": {
+    "description": ""
+  },
+  "contratDetailsMini.ejs": {
+    "description": ""
+  },
+  "diagramConso.ejs": {
+    "description": "",
+    "layoutPage": "main"
+  }
+}

@@ -1,0 +1,18 @@
+<!-- Wappler include head-page="layouts/EmailLayout" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="testpdf" appConnect="local" components="{dmxPdfCreator:{}}" -->
+<dmx-pdf-creator id="pdfcreator1" content="#pdfcontent1"></dmx-pdf-creator>
+<div class="container">
+    <div class="row">
+        <div class="col" is="dmx-pdf-content" id="pdfcontent1" remove-extra-blanks="true">
+            <div class="row">
+                <div class="col">
+
+                    <h1>Fancy display heading</h1><button id="btn1" class="btn btn-primary d-print-none" dmx-on:click="pdfcreator1.open()">Button</button>
+                </div>
+                <div class="col">
+                    <h1>Fancy display heading</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/Authentification/testpdf">

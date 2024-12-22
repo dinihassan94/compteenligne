@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="/">
+  <script src="/dmxAppConnect/dmxAppConnect.js"></script>
+  <base href="/">
+  <meta charset="UTF-8">
+  <title>Compte En Ligne</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/bootstrap/5/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
+  <script src="/dmxAppConnect/dmxRouting/dmxRouting.js" defer></script>
+  <script src="/dmxAppConnect/dmxFormRepeat/dmxFormRepeat.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap5TableGenerator/dmxBootstrap5TableGenerator.css" />
+  <script src="/dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
+  <script src="/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Modal/dmxBootstrap5Modal.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxAnimateCSS/animate.min.css" />
+  <script src="/dmxAppConnect/dmxAnimateCSS/dmxAnimateCSS.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxValidator/dmxValidator.css" />
+  <script src="/dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxPreloader/dmxPreloader.css" />
+  <script src="/dmxAppConnect/dmxPreloader/dmxPreloader.js" defer></script>
+  <script src="/dmxAppConnect/dmxDatastore/dmxDatastore.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Offcanvas/dmxBootstrap5Offcanvas.js" defer></script>
+  <script src="/dmxAppConnect/dmxCharts/Chart.min.js" defer></script>
+  <script src="/dmxAppConnect/dmxCharts/dmxCharts.js" defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" defer></script>
+  <script src="/dmxAppConnect/dmxStateManagement/dmxStateManagement.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxNotifications/dmxNotifications.css" />
+  <script src="/dmxAppConnect/dmxNotifications/dmxNotifications.js" defer></script>
+  <script src="/dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5PagingGenerator/dmxBootstrap5PagingGenerator.js" defer></script>
+  <link rel="icon" href="/assets/images/arton142.png" type="image/svg+xml">
+  <script src="/dmxAppConnect/dmxBootstrap5Collapse/dmxBootstrap5Collapse.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxLightbox/dmxLightbox.css" />
+  <script src="/dmxAppConnect/dmxLightbox/dmxLightbox.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.17.7/dist/tagify.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.17.7/dist/tagify.css" />
+  <script src="/dmxAppConnect/dmxTagify/dmxTagify.js" defer></script>
+  <script src="https://js.stripe.com/v3/" defer></script>
+  <script src="/dmxAppConnect/dmxStripe/dmxStripe.js" defer></script>
+
+
+  <link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap4TableGenerator/dmxBootstrap4TableGenerator.css" />
+  <script src="/dmxAppConnect/dmxBootstrap5Theme/dmxBootstrap5Theme.js" defer></script>
+  <script src="/dmxAppConnect/dmxDownload/dmxDownload.js" defer></script>
+  <script src="/dmxAppConnect/dmxMasonry/dmxMasonry.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Alert/dmxBootstrap5Alert.js" defer></script>
+</head>
+
+
+<style>
+  /* For WebKit browsers (Chrome, Safari) */
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #807F7F;
+    opacity: 0.1;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    opacity: 0.1;
+  }
+
+  scrollbar-color: #3498db #f1f1f1;
+  scrollbar-width: thin;
+
+
+  button {
+    position: relative;
+    overflow: hidden;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: yellow;
+  }
+</style>
+
+<body is="dmx-app" id="main">
+  <dmx-local-manager id="facturaction"></dmx-local-manager>
+
+
+  <dmx-local-manager id="id_contrat"></dmx-local-manager>
+
+
+
+  <dmx-serverconnect id="Userinfos" url="/api/Security/Userinfos"></dmx-serverconnect>
+  <dmx-serverconnect id="Logout" url="/api/Security/Logout" noload="true"></dmx-serverconnect>
+  <div is="dmx-browser" id="Deconn"></div>
+  <dmx-session-manager id="idcontrat"></dmx-session-manager>
+
+  <header class="border-success border-bottom sticky-top navbar-light d-lg-none shadow bg-opacity-100" style="background-color:#2844ac">
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col mb-0 pb-0">
+          <nav class="navbar navbar-expand-lg navbar-light text-white bg-opacity-75 pb-0">
+            <a class="navbar-brand text-center fw-bold text-light text-uppercase pt-1 pb-1 ps-3 pe-2" href="#"><img src="/assets/images/arton142.png" width="45" class="img-thumbnail img-fluid">&nbsp; &nbsp;Compte en Ligne</a>
+            <button class="navbar-toggler bg-opacity-10 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1_collapse" aria-controls="navbar1_collapse" aria-expanded="false" aria-label="Toggle navigation" style="background-color:white">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse fw-bold initialism text-capitalize justify-content-start bg-white" id="navbar1_collapse">
+              <div class="navbar-nav pt-2 pb-2 ps-2 pe-2 shadow-sm nav-tabs">
+                <a class="nav-item nav-link mb-1 me-1 ps-2 bg-opacity-50 shadow-sm text-muted" href="/CompteEnLigne/Dashboard"><i class="fas fa-tachometer-alt">&nbsp;&nbsp;</i>Dashboard</a>
+                <a class="nav-item nav-link mb-1 me-1 ps-2 bg-opacity-50 shadow-sm text-muted" href="/CompteEnLigne/Impayes"><i class="fas fa-envelope-open-text">&nbsp;&nbsp;</i>Mes Impayes</a>
+                <a class="nav-item nav-link mb-1 me-1 ps-2 bg-opacity-50 shadow-sm text-muted" href="CompteEnLigne/Portefeuille"><i class="fas fa-scroll">&nbsp;</i>Details Contrat</a>
+                <a class="nav-item nav-link bg-opacity-10 mb-1 me-1 ps-2 text-muted shadow-sm" href="CompteEnLigne/Contrat"><i class="fas fa-chart-bar">&nbsp;</i>suivi relève</a>
+                <a class="nav-item nav-link bg-opacity-10 mb-1 me-1 ps-2 text-muted shadow-sm" href="/CompteEnLigne/Setting"><i class="fas fa-cog">&nbsp;</i>
+                  <font face="Font Awesome 5 Free">Paramétre<br></font>
+                </a><button id="decon" class="btn text-danger btn-outline-danger btn-sm shadow-sm bg-white mt-2" dmx-on:click="Logout.load({});Deconn.goto('Authentification/Login')">Se deconnecter&nbsp;<i class="fas fa-sign-out-alt"></i></button>
+              </div>
+            </div>
+
+
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <header class="border-bottom d-none d-lg-block shadow sticky-top pt-0 pb-0 border-primary" style="background-color:#2844ac">
+    <div class="container pt-0 pb-0">
+      <div class="row pt-0 pb-0">
+
+        <div class="col pt-0 pb-0">
+          <nav class="navbar navbar-expand-lg navbar-light pt-0 pb-0">
+            <a class="navbar-brand ms-auto text-light small initialism fw-bolder" href="#"><img src="/assets/images/arton142.png" width="50" class="img-thumbnail img-fluid">&nbsp; &nbsp; Compte en Ligne</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1_collapse" aria-controls="navbar1_collapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar1_collapse">
+            </div>
+          </nav>
+        </div>
+        <div class="offset-1 col-2 col-lg-2 mt-lg-2 pe-lg-0 pt-0 pb-0"><button id="decon1" class="btn shadow-sm btn-sm mark small mt-lg-2 mt-xxl-2 mt-xl-2 btn-light text-danger" dmx-on:click="Logout.load({});Deconn.goto('Authentification/Login')"><i class="fas fa-sign-out-alt">&nbsp;</i>Se deconnecter&nbsp;</button></div>
+      </div>
+    </div>
+  </header>
+  <header>
+    <div class="container-fluid" dmx-style:background-color="'#f7f7f7'">
+
+      <div class="row">
+        <div class="d-none d-lg-block col-xl-2 col-lg-2 col-xxl-2 text-center bg-white border border-light col-1 me-1 shadow-sm">
+
+
+
+          <div class="row">
+            <div class="col-12 mark mt-4 pt-3 border shadow-sm bg-opacity-50 bg-white rounded">
+              <h4 class="text-center fw-bold text-uppercase initialism bg-opacity-10 text-primary">
+                <i class="fas fa-bars">&nbsp;&nbsp;</i>Menu
+              </h4>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <button id="btn3" class="btn w-100 mt-2 shadow-sm fw-bold btn-custom" data-url="CompteEnLigne/Dashboard" dmx-on:click="Deconn.goto('CompteEnLigne/Dashboard')">
+                <i class="fas fa-tachometer-alt"></i>&nbsp;Dashboard
+              </button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <button id="btn2" class="btn w-100 shadow-sm fw-bold btn-custom" data-url="/CompteEnLigne/Impayes" dmx-on:click="Deconn.goto('/CompteEnLigne/Impayes')">
+                <i class="fas fa-envelope-open-text"></i>&nbsp;Mes Impayés
+              </button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <button id="btn4" class="btn w-100 shadow-sm fw-bold btn-custom" data-url="CompteEnLigne/Portefeuille" dmx-on:click="Deconn.goto('CompteEnLigne/Portefeuille')">
+                <i class="fas fa-scroll"></i>&nbsp;Détails Contrat
+              </button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <button id="btn1" class="btn w-100 shadow-sm fw-bold btn-custom" data-url="CompteEnLigne/Contrat" dmx-on:click="Deconn.goto('CompteEnLigne/Contrat')">
+                <i class="fas fa-chart-bar"></i>&nbsp;Suivi Relève
+              </button>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col">
+              <button id="btn5" class="btn w-100 shadow-sm fw-bold btn-custom" data-url="/CompteEnLigne/Setting" dmx-on:click="Deconn.goto('/CompteEnLigne/Setting')"><i class="fas fa-cog"></i>&nbsp;Paramétre</button>
+            </div>
+          </div>
+
+
+          <style>
+            /* Existing styles... */
+
+
+
+            .btn-custom {
+              background-color: white;
+              /* Light background */
+              border: 2px solid transparent;
+              /* Transparent border for animation */
+              border-radius: 25px;
+              /* Rounded corners */
+              color: #333;
+              /* Dark text color */
+              font-weight: bold;
+              transition: background-color 0.3s, border 0.3s, transform 0.3s;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .btn-custom:hover {
+              background-color: #dee5f0;
+              /* Blue background on hover */
+              color: #70a7ff;
+              /* Change text color */
+              border: 2px solid #dee5f0;
+              /* Darker blue border */
+              transform: translateY(-3px);
+              /* Lift effect */
+            }
+
+            .btn-custom.active {
+              background-color: #2844ac;
+              /* Darker blue for active state */
+              color: white;
+              /* White text for active button */
+              border: 2px solid #2844ac;
+              /* Even darker blue border */
+              transform: none;
+              /* Reset lift effect */
+            }
+
+            /* Responsive spacing */
+            @media (max-width: 768px) {
+              .row {
+                margin-bottom: 1rem;
+                /* Space between buttons */
+              }
+            }
+          </style>
+
+
+
+
+
+          <div class="row mt-4">
+            <div class="col-12 border pt-3 shadow-sm bg-opacity-75 rounded">
+              <h4 class="text-center fw-bold text-uppercase initialism bg-opacity-10 text-primary mb-2 pb-1"><i class="fas fa-bullhorn">&nbsp; INfos</i></h4>
+            </div>
+            <div class="col mt-3">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+
+
+              <div class="d-block">
+                <img src="/assets/images/edd2.jpg" class="img-fluid img-thumbnail" dmx-on:click="Deconn.goto('https://www.edd.dj/')">
+              </div>
+              <div class="d-block mt-3">
+                <img src="/assets/images/edd1.jpg" class="img-fluid mt-3 mb-5 img-thumbnail" dmx-on:click="Deconn.goto('https://play.google.com/store/apps/details?id=dj.edd.app.eddmobile')">
+              </div>
+            </div>
+          </div>
+        </div>
+        <style>
+          .logo-background {
+            position: relative;
+            /* Ensure the pseudo-element is positioned correctly */
+          }
+
+          .logo-background::before {
+            content: "";
+            /* Create an empty content for the pseudo-element */
+            background-image: url('/assets/images/arton142.png');
+            /* Replace with your logo path */
+            background-size: contain;
+            /* Adjust the size of the background image */
+            background-repeat: no-repeat;
+            /* Prevent the image from repeating */
+            background-position: center;
+            /* Center the background image */
+            position: absolute;
+            /* Position it absolutely */
+            top: 0;
+            /* Align to the top */
+            left: 0;
+            /* Align to the left */
+            right: 0;
+            /* Extend to the right */
+            bottom: 0;
+            /* Extend to the bottom */
+            opacity: 0.08;
+            /* Adjust the opacity for the background image */
+            z-index: 0;
+            /* Place it behind the content */
+          }
+        </style>
+        <div class="col w-100 mh-100 logo-background bg-white">
+          <div is="dmx-view" id="content">
+            <%- await include(content, locals); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <footer class="wappler-block fixed-bottom border-top shadow bg-white border-info-subtle">
+    <div class="container">
+      <div class="row text-white mb-0">
+        <div class="col text-white">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light text-white mb-0 pt-0 pb-0 ps-0 pe-0">
+            <div class="container-fluid bg-opacity-75 text-primary bg-white">
+
+              <span class="navbar-text d-none d-md-block text-body-secondary">№&nbsp;<span style="color: secondary; font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size); font-weight: var(--bs-body-font-weight); text-align: var(--bs-body-text-align);">Client :</span><b style="font-family: var(--bs-body-font-family); font-size: var(--bs-body-font-size); text-align: var(--bs-body-text-align);">&nbsp;{{Userinfos.data.api.data[0].payeur}}</b></span><span class="navbar-text p-2 small ms-auto fw-bold text-body-secondary">{{Userinfos.data.api.data[0].nom}}</span><img src="/assets/images/Google_account_icon.svg.png" width="20" class="img-fluid">
+
+            </div>
+
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  // Get the current URL path
+  const currentPath = window.location.pathname;
+
+  // Get all buttons with the custom class
+  const buttons = document.querySelectorAll('.btn-custom');
+
+  // Loop through buttons and add active class if URL matches
+  buttons.forEach(button => {
+    const buttonUrl = button.getAttribute('data-url');
+
+    // Check if the current path matches the button URL
+    if (currentPath.includes(buttonUrl)) {
+      button.classList.add('active'); // Add active class if it matches
+    }
+  });
+});
+</script>

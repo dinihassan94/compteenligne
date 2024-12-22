@@ -1,0 +1,100 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "page": "index",
+      "routeType": "page",
+      "layout": "main",
+      "exec": ""
+    },
+    {
+      "path": "/CompteEnLigne/Impayes",
+      "page": "CompteEnLigne/Impayes",
+      "layout": "main",
+      "name": "Impayes",
+      "exec": ""
+    },
+    {
+      "path": "/Authentification/Login",
+      "page": "Authentification/Login",
+      "layout": "LoginLayout",
+      "name": "Login"
+    },
+    {
+      "path": "/CompteEnLigne/Portefeuille",
+      "page": "CompteEnLigne/Portefeuille",
+      "layout": "main",
+      "name": "Portefeuille",
+      "exec": ""
+    },
+    {
+      "path": "/CompteEnLigne/Contrat",
+      "page": "CompteEnLigne/Contrat",
+      "layout": "main",
+      "exec": ""
+    },
+    {
+      "path": "/test",
+      "page": "test",
+      "layout": "LoginLayout"
+    },
+    {
+      "path": "/CompteEnLigne/GenFacture",
+      "page": "CompteEnLigne/GenFacture",
+      "layout": ""
+    },
+    {
+      "path": "/CompteEnLigne/Dashboard",
+      "page": "CompteEnLigne/Dashboard",
+      "layout": "main"
+    },
+    {
+      "path": "/Authentification/Register",
+      "page": "Authentification/Register",
+      "layout": "LoginLayout"
+    },
+    {
+      "path": "/Authentification/EmailSendingPage",
+      "page": "Authentification/EmailSendingPage",
+      "layout": "LoginLayout"
+    },
+    {
+      "path": "/Authentification/SetPassword",
+      "page": "Authentification/SetPassword",
+      "layout": "EmailLayout"
+    },
+    {
+      "path": "/Authentification/resetPassword",
+      "page": "Authentification/resetPassword",
+      "layout": "LoginLayout"
+    },
+    {
+      "path": "/CompteEnLigne/Setting",
+      "page": "CompteEnLigne/Setting",
+      "layout": "main"
+    },
+    {
+      "path": "/Authentification/testpdf",
+      "page": "Authentification/testpdf",
+      "layout": "EmailLayout"
+    }
+  ],
+  "layouts": {
+    "main": {
+      "exec": "/api/Security/restrict"
+    },
+    "LoginLayout": {
+      "exec": ""
+    }
+  },
+  "partials": {
+    "RamadanTest": {
+      "meta": [
+        {
+          "type": "text",
+          "name": "message"
+        }
+      ]
+    }
+  }
+}

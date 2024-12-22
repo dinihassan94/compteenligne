@@ -1,0 +1,10 @@
+{
+  "Login.ejs": {
+    "layoutPage": "Login",
+    "description": ""
+  },
+  "test.ejs": {
+    "layoutPage": "LoginLayout",
+    "description": ""
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idfacture"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "query",
+        "module": "dbupdater",
+        "action": "custom",
+        "options": {
+          "connection": "edbProd",
+          "sql": {
+            "query": "SELECT\n    fc.num_facture, \n    TO_CHAR(fc.date_emission, 'DD/MM/YYYY') AS dateEmission,\n    TO_CHAR(fc.date_echeance, 'DD/MM/YYYY') AS dateecheance, \n    fc.nom_payeur, \n    fc.adr_pl, \n    fc.num_contrat, \n    fc.id_pl, \n    fc.id_payeur, \n    fc.code_compteur, \n    fc.ps, \n    fc.montant,\n    fc.categ,\n    TO_CHAR(fc.ancien_index, 'FM999G999') AS \"ancien_index\",\n    TO_CHAR(fc.ancienne_date, 'DD/MM/YYYY') AS ancienne_date,\n    TO_CHAR(fc.nouvel_index, 'FM999G999') AS \"nouvel_index\",\n    TO_CHAR(fc.nouveau_date, 'DD/MM/YYYY') AS nouveau_date,\n    fc.moy_consommation,\n    TO_CHAR(fc.consommation, 'FM999G999') AS \"consommation\",\n    fc.code_pl_phys,\n    ABS(fc.solde_anterieur) AS \"solde_anterieur\",\n    cl.nom_cellule\nFROM\n    gescli.facture fc\nINNER JOIN\n    gescli.contrat ct ON fc.num_contrat = ct.id_contrat\nINNER JOIN\n    gescli.cellule_clientele cl ON cl.num_cellule = ct.num_cellule\nWHERE\n    fc.num_facture = ? ;",
+            "params": [
+              {
+                "name": "?",
+                "value": "{{$_GET.idfacture}}",
+                "test": "202408013767"
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "num_facture",
+            "type": "number"
+          },
+          {
+            "name": "dateemission",
+            "type": "text"
+          },
+          {
+            "name": "dateecheance",
+            "type": "text"
+          },
+          {
+            "name": "nom_payeur",
+            "type": "text"
+          },
+          {
+            "name": "adr_pl",
+            "type": "text"
+          },
+          {
+            "name": "num_contrat",
+            "type": "number"
+          },
+          {
+            "name": "id_pl",
+            "type": "number"
+          },
+          {
+            "name": "id_payeur",
+            "type": "number"
+          },
+          {
+            "name": "code_compteur",
+            "type": "text"
+          },
+          {
+            "name": "ps",
+            "type": "number"
+          },
+          {
+            "name": "montant",
+            "type": "number"
+          },
+          {
+            "name": "categ",
+            "type": "number"
+          },
+          {
+            "name": "ancien_index",
+            "type": "text"
+          },
+          {
+            "name": "ancienne_date",
+            "type": "text"
+          },
+          {
+            "name": "nouvel_index",
+            "type": "text"
+          },
+          {
+            "name": "nouveau_date",
+            "type": "text"
+          },
+          {
+            "name": "moy_consommation",
+            "type": "number"
+          },
+          {
+            "name": "consommation",
+            "type": "text"
+          },
+          {
+            "name": "code_pl_phys",
+            "type": "text"
+          },
+          {
+            "name": "solde_anterieur",
+            "type": "number"
+          },
+          {
+            "name": "nom_cellule",
+            "type": "text"
+          }
+        ],
+        "type": "dbcustom_query"
+      },
+      {
+        "name": "query1",
+        "module": "dbupdater",
+        "action": "custom",
+        "options": {
+          "connection": "edbProd",
+          "sql": {
+            "query": "select \"libelle\", TO_CHAR(\"quantite\", 'FM999G999') AS \"quantite\", TO_CHAR(\"prix_unitaire\", 'FM999G9990D90') AS \"prix_unitaire\", TO_CHAR(\"montant\", 'FM999G999') AS \"montant\" from \"ligne_facture\" where \"ligne_facture\".\"num_facture\" = ?",
+            "params": [
+              {
+                "name": ":P1",
+                "value": "{{$_GET.idfacture}}",
+                "test": "202311041943",
+                "recid": 1
+              }
+            ]
+          }
+        },
+        "output": true,
+        "meta": [
+          {
+            "name": "libelle",
+            "type": "text"
+          },
+          {
+            "name": "quantite",
+            "type": "text"
+          },
+          {
+            "name": "prix_unitaire",
+            "type": "text"
+          },
+          {
+            "name": "montant",
+            "type": "text"
+          }
+        ],
+        "type": "dbcustom_query"
+      }
+    ]
+  }
+}

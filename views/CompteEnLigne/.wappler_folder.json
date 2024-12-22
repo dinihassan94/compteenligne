@@ -1,0 +1,18 @@
+{
+  "GenFacture.ejs": {
+    "layoutPage": "",
+    "description": ""
+  },
+  "test.ejs": {
+    "layoutPage": "Generation",
+    "description": ""
+  },
+  "Dashboard.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  },
+  "Setting.ejs": {
+    "layoutPage": "main",
+    "description": ""
+  }
+}

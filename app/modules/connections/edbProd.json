@@ -1,0 +1,17 @@
+{
+  "name": "edbProd",
+  "module": "dbconnector",
+  "action": "connect",
+  "options": {
+    "client": "postgres",
+    "connection": {
+      "host": "192.168.9.50",
+      "port": 5444,
+      "user": "gescli_restrict",
+      "password": "gescli_restrict@20@24*",
+      "database": "dbedd"
+    },
+    "tz": "utc"
+  },
+  "fileName": "edbProd.json"
+}

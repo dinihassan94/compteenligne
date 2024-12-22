@@ -1,0 +1,266 @@
+<!-- Wappler include head-page="layouts/main" appconnect="local" is="dmx-app" bootstrap5="local" fontawesome_5="cdn" id="GetContrat" components="{dmxFormatter:{},dmxDataTraversal:{}}" -->
+<div class="modal border bg-white border-white bg-opacity-75" id="chargement" is="dmx-bs5-modal" tabindex="-1" dmx-bind:show="scGetClientContrat.data.Contrat[0].num_Contrat==undefined" nocloseonclick="true" nokeyboard="true" nofocus="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body pb-0 text-center fw-bold">
+
+
+                <img src="/assets/images/arton142.png" class="opacity-75 img-fluid" width="60">
+                <div class="row mb-1">
+                    <div class="col mt-3 mb-2">
+                        <div class="spinner-grow text-primary" role="status">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dmx-serverconnect id="scGetClientContrat" url="/api/GetClientContrat" dmx-param:idclient="Userinfos.data.api.data[0].payeur"></dmx-serverconnect>
+
+<dmx-serverconnect id="GetContratDetails" url="/api/ReadContrat" dmx-param:idcontrat="" dmx-on:unauthorized="Deconn.reload()" dmx-on:success="run([{run:{action:`id_contrat.set(\'idcontrat\',selectContract1.select2.value)`,outputType:'text'}},{runJS:{function:'fetchData',args:[`id_contrat.data.idcontrat`],outputType:'text'}}])" noload="true"></dmx-serverconnect>
+
+<style>
+    /* Add modern styling to the card */
+    .card {
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Define the entrance animation */
+    .animated-card {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.6s forwards;
+    }
+
+    /* Keyframes for the entrance animation */
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="row mb-3 ps-0 pe-0 align-items-xxl-stretch">
+
+    <div class="ps-0 pe-0 col-xxl-10 col-xl-10 col-lg-9 col-md-9 col-sm-8 col">
+
+        <div class="card rounded-3 border animated-card shadow text-bg-warning bg-opacity-50">
+            <div class="card-body lh-1 text-light small">
+                <div class="row">
+                    <div class="text-center lh-1 pt-0 pb-0 col text-black">
+
+
+                        <h4 class="fw-bold lead small lh-1"><i class="fas fa-user-alt"></i>&nbsp; &nbsp;{{Userinfos.data.api.data[0].nom}}</h4>
+                        <p class="font-monospace"><i class="fas fa-map-marker-alt">&nbsp; &nbsp;</i>{{Userinfos.data.api.data[0].adresse}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xxl-2 col-xl-2 col-lg-3 col-md-3 col-sm-4 col d-none d-sm-block pt-0 pb-0 pe-1">
+        <div class="animated-card card rounded-3 border shadow style5 opacity-75">
+            <div class="card-body fw-bold text-light">
+                <div class="row">
+                    <div class="col fw-bold text-danger lh-1">
+                        <h6 class="text-white"><i class="fas fa-wallet">&nbsp;&nbsp;</i>Solde à payer : </h6>
+                        <h5 class="fw-bold lh-sm text-start text-white">{{GetContratDetails.data.api.data.solde.formatCurrency(' ', '.', ' ', 0)}} FDJ</h5>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+
+
+
+    <div class="fw-lighter text-start lh-1 mt-lg-2 mt-xxl-0 mt-xl-0 mt-md-1 mb-md-2 mt-sm-2 mb-sm-2 col-md-6 col-xxl-3 rounded rounded-2 align-self-stretch col-xl-4 pb-3 ps-1 pe-1 col-lg-6 col">
+
+
+        <div class="card shadow-sm rounded-3 border border-light-subtle pb-1">
+
+
+            <div class="card-header fw-bold pt-3 bg-white">
+                <h6 class="fw-bold text-uppercase"><i class="fas fa-file-signature">&nbsp;</i>MON Contrat</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9 col-xl col-xl-9 col-lg-8 pe-lg-0">
+                        <form id="selectContract1" is="dmx-serverconnect-form" method="post">
+                            <div class="form-group md-3 fw-bold font-monospace initialism">
+
+                                <label class="form-label"><b style="font-size:15px">N° de contrat :&nbsp;</b><br></label><select id="select2" class="form-select mb-2" dmx-on:changed="GetContratDetails.load({idcontrat: value},true);id_contrat.set('idcontrat',value);select2.setValue(id_contrat.data.idcontrat)" dmx-on:updated="GetContratDetails.load({idcontrat: value})" dmx-bind:options="scGetClientContrat.data.Contrat" optiontext="num_Contrat" name="gfds" dmx-style:background-color="'#F9F7F7'" optionvalue="num_Contrat">
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-xl-1 col-lg-3 pt-lg-3 col-md-2 col-sm-2 col-2 ms-2">
+                        <img src="/assets/images/2666501.png" width="60">
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+    <div class="col-md-6 align-self-stretch col-xl-4 col-xxl-4 col-lg-6 mb-2 ps-1 pe-1">
+        <div class="card shadow-sm border rounded-3 border-light-subtle">
+            <div class="card-header pt-3 bg-white">
+                <h6 class="fw-bold text-uppercase"><i class="fas fa-info-circle">&nbsp;&nbsp;</i>Informations du contrat</h6>
+            </div>
+            <div class="card-body pt-2 pb-2 ps-2 pe-2 bg-white">
+                <div class="row">
+                    <div class="col">
+                        <div class="card-deck">
+                            <div class="card shadow-sm border mb-1 bg-warning bg-opacity-10">
+                                <div class="card-body pt-1 pb-1">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <p class="card-text fw-bold"><b><i class="fas fa-user-edit">&nbsp;&nbsp;</i>№ Client&nbsp;</b></p>
+
+                                        </div>
+                                        <div class="col">
+                                            <p class="card-text fw-bold">: {{GetContratDetails.data.api.data.payeur}}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card shadow-sm border mb-1 bg-warning bg-opacity-10">
+                                <div class="card-body pt-1 pb-1">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <p class="card-text fw-bold"><b><i class="fas fa-flag">&nbsp;&nbsp;</i>№ PL </b>&nbsp;<span style="font-weight: normal;"></span>&nbsp; &nbsp;</p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="card-text fw-bold">: {{GetContratDetails.data.api.data.numPl}}&nbsp; &nbsp;</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card shadow-sm border mb-1 bg-warning bg-opacity-10">
+                                <div class="card-body pt-1 pb-1 fw-bold">
+                                    <div class="row">
+                                        <div class="col-5">
+                                            <p class="card-text"><b><i class="fas fa-bolt">&nbsp;&nbsp;</i>Puissance </b>&nbsp;</p>
+                                        </div>
+                                        <div class="col">
+                                            <p class="card-text"><span style="font-weight: normal;"><b>: {{GetContratDetails.data.api.data.ps}}</b> KVA</span></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    async function fetchData(idcontrat) {
+    try {
+        const response = await fetch(`/api/conso/ConsoMoyenne?idcontrat=${idcontrat}`);
+        const data = await response.json();
+
+        const jsonData = data.api.data;
+
+        // Extract data for the chart
+        const labels = jsonData[0].periode.split(',');
+
+        // Assign different colors to each month
+        const colors = [
+            'rgba(255, 0, 0, 0.5)',   // January
+            'rgba(255, 165, 0, 0.5)', // February
+            'rgba(255, 255, 0, 0.5)', // March
+            'rgba(0, 128, 0, 0.5)',   // April
+            'rgba(0, 0, 255, 0.5)',   // May
+            'rgba(128, 0, 128, 0.5)', // June
+            'rgba(255, 0, 255, 0.5)', // July
+            'rgba(0, 255, 255, 0.5)', // August
+            'rgba(128, 128, 0, 0.5)', // September
+            'rgba(128, 128, 128, 0.5)', // October
+            'rgba(0, 255, 0, 0.5)',   // November
+            'rgba(165, 42, 42, 0.5)'  // December
+        ];
+
+        // Filter data for the year 2023
+        const filteredData = jsonData.filter(entry => entry.year === 2024);
+
+        // Calculate total consumption for the year
+        const totalConsumption = filteredData.reduce((sum, entry) => {
+            return sum + entry.consKwh.split(',').reduce((monthSum, value) => monthSum + Number(value), 0);
+        }, 0);
+
+        // Log total consumption to the console
+        console.log('Total Consumption for 2024:', totalConsumption);
+        const totalConsumptionDiv = document.getElementById('totalConsumption');
+        totalConsumptionDiv.textContent = totalConsumption.toLocaleString() + " Kwh";
+
+        const datasets = filteredData.map((entry, index) => ({
+            label: entry.year.toString(),
+            data: entry.consKwh.split(',').map(Number),
+            backgroundColor: colors.slice(0, labels.length),
+            borderColor: 'rgba(0,0,0,1)',
+            borderWidth: 1,
+        }));
+
+        // Create the chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar', // Change this line to 'bar' for a histogram
+            data: {
+                labels: labels,
+                datasets: datasets,
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        labels: {
+                            font: {
+                                size: 14 // Adjust the font size as needed
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                    },
+                },
+            },
+        });
+
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+
+
+
+
+
+ 
+</script>

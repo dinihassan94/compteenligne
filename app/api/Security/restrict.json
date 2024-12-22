@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "token"
+      },
+      {
+        "type": "text",
+        "name": "idClient"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "",
+      "module": "core",
+      "action": "condition",
+      "options": {
+        "if": "{{!$_COOKIE.token&&!$_COOKIE.idClient}}",
+        "then": {
+          "steps": {
+            "name": "Unauthorized",
+            "module": "core",
+            "action": "redirect",
+            "options": {
+              "url": "/Authentification/Login"
+            }
+          }
+        }
+      },
+      "outputType": "boolean"
+    }
+  }
+}

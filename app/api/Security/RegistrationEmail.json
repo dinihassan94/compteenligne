@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/Authentification/Register.ejs",
+      "linkedForm": "Register"
+    },
+    "$_POST": [
+      {
+        "type": "text",
+        "fieldName": "email",
+        "options": {
+          "rules": {
+            "core:required": {}
+          }
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "fieldName": "Tel",
+        "options": {
+          "rules": {
+            "core:required": {}
+          }
+        },
+        "name": "Tel"
+      },
+      {
+        "type": "text",
+        "fieldName": "NumContrat",
+        "options": {
+          "rules": {
+            "core:required": {}
+          }
+        },
+        "name": "idClient"
+      },
+      {
+        "type": "text",
+        "fieldName": "NumCompteur",
+        "options": {
+          "rules": {
+            "core:required": {}
+          }
+        },
+        "name": "NumCompteur"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "api",
+      "module": "api",
+      "action": "send",
+      "options": {
+        "url": "http://192.168.9.60:8082/api/Auth/Register",
+        "dataType": "json",
+        "data": {
+          "client": "{{$_POST.idClient}}",
+          "contrat": 0,
+          "position": 0,
+          "type_Role": 0,
+          "compteur": "{{$_POST.NumCompteur}}",
+          "oldPassword": "",
+          "newPassword": "",
+          "email": "{{$_POST.email}}",
+          "phone": "{{$_POST.Tel}}",
+          "restPassword": true
+        },
+        "schema": [
+          {
+            "type": "array",
+            "name": "data"
+          },
+          {
+            "type": "object",
+            "name": "headers"
+          }
+        ],
+        "headers": {
+          "Authorization": "{{'Bearer '+$_COOKIE.token}}"
+        },
+        "method": "POST"
+      },
+      "meta": [
+        {
+          "type": "array",
+          "name": "data"
+        },
+        {
+          "type": "object",
+          "name": "headers"
+        }
+      ],
+      "outputType": "object",
+      "output": true
+    }
+  }
+}

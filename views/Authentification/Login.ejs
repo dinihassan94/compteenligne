@@ -1,0 +1,93 @@
+<!-- Wappler include fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="Login" appconnect="local" components="{dmxAnimateCSS:{},dmxValidator:{},dmxNotifications:{},dmxStateManagement:{},dmxFormatter:{},dmxBrowser:{}}" head-page="layouts/main" -->
+
+
+
+<style>
+    .line-text {
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    .line-text::before,
+    .line-text::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #000;
+        margin: 0 10px;
+    }
+</style>
+
+<dmx-notifications id="notifies1" newest-on-top="true" danger-color="white" timeout="10000" opacity="1" closable="true"></dmx-notifications>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="/bootstrap/5/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/style.css" />
+<script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
+<script src="/dmxAppConnect/dmxRouting/dmxRouting.js" defer></script>
+<script src="/dmxAppConnect/dmxFormRepeat/dmxFormRepeat.js" defer></script>
+<link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap5TableGenerator/dmxBootstrap5TableGenerator.css" />
+<script src="/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer></script>
+<script src="/dmxAppConnect/dmxBootstrap5Modal/dmxBootstrap5Modal.js" defer></script>
+<link rel="stylesheet" href="/dmxAppConnect/dmxPreloader/dmxPreloader.css" />
+<script src="/dmxAppConnect/dmxPreloader/dmxPreloader.js" defer></script>
+
+
+<div class="text-center container-md border-dark">
+    <form method="post" class="login" action="/api/Security/login" dmx-on:success="browser1.goto('CompteEnLigne/Dashboard')" dmx-on:error="notifies1.danger('id Client ou Mot de passe incorrect.')" dmx-on:unauthorized="notifies1.danger('id Client  ou Mot de passe incorrect')" is="dmx-serverconnect-form" id="Login">
+        <div class="row justify-content-center mt-0 pb-5">
+
+            <div class="col-12 col-md-8 col-xl-5 text-start rounded-2 rounded shadow align-self-stretch col-lg-8 border-warning mt-5 pt-0 pb-1 bg-white" dmx-animate-enter="fadeInUp">
+
+
+                <div class="row">
+                    <div class="text-center rounded-1 mt-0 pb-2 col-12 border bg-opacity-75 bg-white border-info-subtle">
+                        <img src="/assets/images/arton142.png" class="img-fluid img-thumbnail rounded mt-4" width="80">
+                        <h3 class="mt-2 mb-2 fw-bold lh-base bg-opacity-75 text-primary bg-white text-uppercase lead small">EDD | Compte en ligne</h3>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h6 class="text-center mt-3 text-uppercase text-primary fw-bold">connexion</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-1 col-10 mt-2">
+                        <input type="number" id="inp_matr" name="idclient" class="form-control" placeholder="ID Client">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-10 offset-1">
+                        <input type="password" id="inp_password" name="password" class="form-control" placeholder="Mot de Passe">
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                    <div class="text-center mb-1 offset-1 col-10">
+                        <div class="spinner-border spinner-border-sm text-primary" role="status" dmx-show="state.executing">
+                        </div>
+                        <button id="login1_submit" class="btn w-100 btn-primary fw-bold shadow-sm" dmx-hide="state.executing" type="submit"><i class="fas fa-sign-in-alt">&nbsp;&nbsp;</i>&nbsp;Se Connecter</button>
+
+                    </div>
+                </div>
+                <div class="container mt-2">
+                    <div class="line-text text-dark"> <B>OU</B> </div>
+                </div>
+                <div class="row">
+                    <div class="text-center mb-1 offset-1 col-10">
+
+                        <button id="Register1" class="btn w-100 mt-4 fw-bold btn-outline-info shadow-sm" dmx-on:click="browser1.goto('/Authentification/resetPassword')"><i class="fas fa-redo">&nbsp; &nbsp;</i>J'ai oublié mon mot de passe</button><button id="Register" class="btn w-100 mt-4 fw-bold btn-outline-success shadow-sm" dmx-on:click="browser1.goto('/Authentification/Register')"><i class="fas fa-user-plus">&nbsp; &nbsp;</i>Créer mon espace client</button>
+
+                    </div>
+                </div>
+                <p class="text-end text-black-50 small"><span style="font-weight: normal;">{{idcontrat.data.token}}build 1.0.0</span></p>
+            </div>
+        </div>
+    </form>
+</div>
+<div is="dmx-browser" id="browser1"></div>
+
+
+
+
+<meta name="ac:route" content="/Authentification/Login">

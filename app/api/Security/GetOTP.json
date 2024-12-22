@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "options": {
+      "linkedFile": "/views/Authentification/EmailSendingPage.ejs",
+      "linkedForm": "FormOTP"
+    },
+    "$_POST": [
+      {
+        "type": "number",
+        "fieldName": "otpcode",
+        "options": {
+          "rules": {
+            "core:number": {}
+          }
+        },
+        "name": "otpcode"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "api",
+      "module": "api",
+      "action": "send",
+      "options": {
+        "url": "{{'http://192.168.9.60:8082/api/Auth/GetOTP/'+$_POST.otpcode}}",
+        "schema": [
+          {
+            "type": "text",
+            "name": "data"
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-length"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              }
+            ]
+          }
+        ]
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "text",
+          "name": "data"
+        },
+        {
+          "type": "object",
+          "name": "headers",
+          "sub": [
+            {
+              "type": "text",
+              "name": "content-length"
+            },
+            {
+              "type": "text",
+              "name": "date"
+            },
+            {
+              "type": "text",
+              "name": "server"
+            }
+          ]
+        }
+      ],
+      "outputType": "object"
+    }
+  }
+}

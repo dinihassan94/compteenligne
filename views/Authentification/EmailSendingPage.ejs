@@ -1,0 +1,54 @@
+<!-- Wappler include head-page="layouts/LoginLayout" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="EmailSendingPage" appConnect="local" components="{dmxNotifications:{},dmxStateManagement:{},dmxBrowser:{},dmxAnimateCSS:{}}" -->
+<div is="dmx-browser" id="browser"></div>
+<dmx-local-manager id="Ls_otpcode"></dmx-local-manager>
+<dmx-notifications id="notifies" timeout="10000" opacity="1" closable="true"></dmx-notifications>
+<div class="container">
+    <div class="row">
+        <div class="col mt-5 mb-5 ps-0 pe-0" dmx-animate-enter="fadeInUp">
+
+            <div class="card bg-opacity-100 shadow-sm bg-white" back="">
+
+                <div class="card-body mt-0 mb-5 pt-0 pb-5">
+
+
+                    <div class="row border border-white mt-0 mb-5">
+                        <div class="text-center rounded-1 pb-2 col-12 bg-opacity-10 bg-primary">
+
+                            <img src="/assets/images/arton142.png" class="img-fluid img-thumbnail rounded mt-4" width="100">
+                            <h3 class="mt-2 fw-bold text-uppercase text-black">Merci !</h3>
+                            <h6 class="fw-bold text-black">Votre demande a bien été prise en compte.</h6>
+                            <h6>Un email de confirmation vous a été envoyé. Si vous ne trouvez pas le courriel, vérifiez vos spams !
+                            </h6>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 offset-3">
+                            <form id="FormOTP" is="dmx-serverconnect-form" action="/api/Security/GetOTP" dmx-on:error="notifies.danger(lastError.response.message)" dmx-on:success="notifies.success('OTP Valider');Ls_otpcode.set('otpcode',OTP.value);browser.goto('/Authentification/SetPassword')" method="post">
+                                <div class="form-group mb-3 text-center fw-bold"> <label for="OTP" class="form-label">Entrer le OTP code</label>
+                                    <input type="number" class="form-control" id="OTP" name="otpcode" aria-describedby="input1_help" placeholder="OTP code">
+                                </div>
+                                <div class="row">
+                                    <div class="text-center offset-3 col-6">
+                                        <button id="btn1" class="btn fw-bold w-100 bg-opacity-75 text-bg-primary shadow-sm" type="submit"><i class="fas fa-barcode">&nbsp;&nbsp;</i>Valider</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card rounded">
+                <div class="card-body pt-2 pb-2">
+                    <div class="row">
+                        <div class="col text-center">
+                            <a href="/Authentification/Login">Revenir sur la page de connexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/Authentification/EmailSendingPage">

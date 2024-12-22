@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base href="/">
+  <script src="/dmxAppConnect/dmxAppConnect.js"></script>
+  <meta charset="UTF-8">
+  <title>Compte En Ligne : Login</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/bootstrap/5/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
+  <script src="/dmxAppConnect/dmxRouting/dmxRouting.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxBootstrap5TableGenerator/dmxBootstrap5TableGenerator.css" />
+  <script src="/dmxAppConnect/dmxFormatter/dmxFormatter.js" defer></script>
+  <script src="/dmxAppConnect/dmxCharts/Chart.min.js" defer></script>
+  <script src="/dmxAppConnect/dmxCharts/dmxCharts.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxNotifications/dmxNotifications.css" />
+  <script src="/dmxAppConnect/dmxNotifications/dmxNotifications.js" defer></script>
+  <script src="/dmxAppConnect/dmxBrowser/dmxBrowser.js" defer></script>
+  <link rel="icon" href="/assets/images/arton142.png">
+  <script src="/dmxAppConnect/dmxStateManagement/dmxStateManagement.js" defer></script>
+  <script src="/dmxAppConnect/dmxDataTraversal/dmxDataTraversal.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Modal/dmxBootstrap5Modal.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxAnimateCSS/animate.min.css" />
+  <script src="/dmxAppConnect/dmxAnimateCSS/dmxAnimateCSS.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxValidator/dmxValidator.css" />
+  <script src="/dmxAppConnect/dmxValidator/dmxValidator.js" defer></script>
+  <script src="/dmxAppConnect/dmxDatastore/dmxDatastore.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5PagingGenerator/dmxBootstrap5PagingGenerator.js" defer></script>
+  <script src="/dmxAppConnect/dmxDownload/dmxDownload.js" defer></script>
+</head>
+
+<body is="dmx-app" id="Login">
+
+
+
+  <div is="dmx-view" id="content">
+
+    <div class="bubble-background">
+      <!-- Create electricity icon elements -->
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+      <div class="electricity-icon"><i class="fa fa-solid fa-bolt"></i></div>
+    </div>
+
+    <span id="contents"><%- await include(content, locals); %>
+      <!-- Waved top -->
+
+
+
+      <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="width: 100%; height: 200px;">
+        <path fill="#ffffff">
+          <animate attributeName="d" dur="5s" repeatCount="indefinite" values="
+        M0,50 C80,20 160,80 240,50 C320,20 400,80 480,50 C560,20 640,80 720,50 C800,20 880,80 960,50 C1040,20 1120,80 1200,50 C1280,20 1360,80 1440,50 L1440,100 L0,100 Z; 
+        M0,60 C80,40 160,80 240,60 C320,40 400,80 480,60 C560,40 640,80 720,60 C800,40 880,80 960,60 C1040,40 1120,80 1200,60 C1280,40 1360,80 1440,60 L1440,100 L0,100 Z; 
+        M0,50 C80,20 160,80 240,50 C320,20 400,80 480,50 C560,20 640,80 720,50 C800,20 880,80 960,50 C1040,20 1120,80 1200,50 C1280,20 1360,80 1440,50 L1440,100 L0,100 Z
+      " />
+        </path>
+      </svg>
+
+      <div class="container-fluid bg-white bg-opacity-100 pb-5" style="position: relative;">
+
+        <div class="container text-light rounded-1 mb-4 pt-4 pb-0">
+          <div class="row" style=" text-align:center;">
+            <div class="col-6  text-right "><a class="logo " style="float:right;" href="https://play.google.com/store/apps/details?id=dj.edd.eddmobile&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img class="img-responsive img-fluid" alt="Disponible sur Google Play" style="display: block;margin-left: auto;margin-right: auto" src="https://www.edd.dj/assets/images/google-play.png"></a></div>
+            <div class="col-6 "><a class="logo " style="float:left;" href="https://itunes.apple.com/us/app/edd-mobile/id1459376903?l=fr&amp;ls=1&amp;mt=8"><img class="img-responsive img-fluid" alt="Disponible sur App Store" style="display: block;margin-left: auto;margin-right: auto" src="https://www.edd.dj/assets/images/app-store.png"></a></div>
+          </div>
+          <p class="text-center mt-2 text-black">Télécharger gratuitement l’application <b>Edd Mobile App</b> pour smartphone ou tablette</p>
+          <div class="d-flex justify-content-around text-primary-emphasis mt-3 mb-2">
+            <div class="card">
+              <div class="card-body fw-bold">
+                <a href="https://www.edd.dj/confidentialite.html">Politique de confidentialité</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body fw-bold">
+                <a href="https://www.edd.dj/mention_legals.html">Mentions légales</a>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </span>
+
+
+
+  </div>
+
+
+
+
+  <footer class="fixed-bottom bg-light text-body shadow-sm border-top border-primary-subtle mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <p class="text-center mb-0 p-1 fw-bold">© 2011-2024 Copyrights. All rights reserved. EDD
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  #Login,
+    {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  /*.bubble-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2844ac;
+
+    overflow: hidden;
+  }*/
+
+
+  .bubble-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/images/compteenligne.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+
+    /* Adding semi-transparent overlay */
+    background-color: rgba(40, 68, 172, 0.7);
+    /* Adjust the alpha (0.7) for transparency */
+    background-blend-mode: overlay;
+    /* Blends the color with the image */
+  }
+
+
+
+  .electricity-icon {
+    position: absolute;
+    bottom: -100px;
+    /* Start below the viewport */
+    font-size: 50px;
+    /* Size of the electricity icon */
+    color: rgba(255, 255, 255, 1);
+    animation: rise 3s infinite ease-in-out;
+    opacity: 1;
+  }
+
+  .electricity-icon:nth-child(2) {
+    font-size: 60px;
+    left: 15%;
+    animation-duration: 10s;
+  }
+
+  .electricity-icon:nth-child(3) {
+    font-size: 80px;
+    left: 25%;
+    animation-duration: 12s;
+  }
+
+  .electricity-icon:nth-child(4) {
+    font-size: 50px;
+    left: 35%;
+    animation-duration: 14s;
+  }
+
+  .electricity-icon:nth-child(5) {
+    font-size: 30px;
+    left: 45%;
+    animation-duration: 16s;
+  }
+
+  .electricity-icon:nth-child(6) {
+    font-size: 70px;
+    left: 55%;
+    animation-duration: 18s;
+  }
+
+  .electricity-icon:nth-child(7) {
+    font-size: 40px;
+    left: 65%;
+    animation-duration: 20s;
+  }
+
+  .electricity-icon:nth-child(8) {
+    font-size: 50px;
+    left: 75%;
+    animation-duration: 22s;
+  }
+
+  .electricity-icon:nth-child(9) {
+    font-size: 60px;
+    left: 85%;
+    animation-duration: 24s;
+  }
+
+  .electricity-icon:nth-child(10) {
+    font-size: 80px;
+    left: 95%;
+    animation-duration: 26s;
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-50vh) scale(1.2);
+    }
+
+    100% {
+      transform: translateY(-100vh) scale(0.8);
+      opacity: 0;
+    }
+  }
+
+  #contents {
+    position: relative;
+    color: white;
+    z-index: 1;
+  }
+</style>

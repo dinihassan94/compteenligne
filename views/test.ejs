@@ -1,0 +1,72 @@
+<!-- Wappler include head-page="layouts/LoginLayout" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="test" appConnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxCharts:{}}" -->
+<dmx-api-datasource id="api1" is="dmx-fetch" url="http://192.168.9.60:93/api/Contrats/conso/92515"></dmx-api-datasource>
+<dmx-chart id="chart1" dmx-bind:data="api1.data" dataset-1:value="consKwh"></dmx-chart>
+<dmx-serverconnect id="serverconnect1" url="/api/Login"></dmx-serverconnect>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<body>
+    <canvas id="myChart" width="50" height="50"></canvas>
+
+    <script>
+        // Your JSON data
+        const jsonData = [
+            {
+                "year": 2021,
+                "consKwh": "0,1148,0,487,0,882,0,967,0,816,0,578",
+                "periode": "JANV.,FÉVR.,MARS,AVRIL,MAI,JUIN,JUIL.,AOÛT,SEPT.,OCT.,NOV.,DÉC.",
+                "max": null,
+                "min": null,
+                "moyenne": null
+            },
+            {
+                "year": 2022,
+                "consKwh": "0,461,0,442,0,666,0,1085,0,1224,0,774",
+                "periode": "JANV.,FÉVR.,MARS,AVRIL,MAI,JUIN,JUIL.,AOÛT,SEPT.,OCT.,NOV.,DÉC.",
+                "max": null,
+                "min": null,
+                "moyenne": null
+            },
+            {
+                "year": 2023,
+                "consKwh": "0,696,0,915,0,1261,0,0,0,0,0,0",
+                "periode": "JANV.,FÉVR.,MARS,AVRIL,MAI,JUIN,JUIL.,AOÛT,SEPT.,OCT.,NOV.,DÉC.",
+                "max": null,
+                "min": null,
+                "moyenne": null
+            }
+        ];
+
+        // Extract data for the chart
+        const labels = jsonData[0].periode.split(',');
+        const colors = ['rgba(75, 192, 192, 0.2)', 'rgba(255, 99, 132, 0.2)', 'rgba(255, 205, 86, 0.2)']; // Add more colors as needed
+        const datasets = jsonData.map((entry, index) => ({
+            label: entry.year.toString(),
+            data: entry.consKwh.split(',').map(Number),
+            backgroundColor: colors[index],
+            borderColor: 'rgb(75, 192, 192)',
+            borderWidth: 1,
+        }));
+
+        // Create the chart
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: datasets,
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+
+<meta name="ac:route" content="/test">

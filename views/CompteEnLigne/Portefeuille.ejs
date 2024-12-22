@@ -1,0 +1,372 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="Portefeuille" appConnect="local" components="{dmxBootstrap5Navigation:{},dmxAnimateCSS:{},dmxValidator:{},dmxFormatter:{},dmxBootstrap5TableGenerator:{},dmxBootstrap5Modal:{},dmxDataTraversal:{},dmxCharts:{},dmxDatastore:{},dmxBootstrap5PagingGenerator:{},dmxBootstrap5Offcanvas:{},dmxStripe:{},dmxBootstrap5Theme:{},dmxMasonry:{}}" -->
+<dmx-serverconnect id="scMesDemandes" url="/api/Contrat/DemandeDossier" dmx-param:idcontrat="id_contrat.data.idcontrat" dmx-param:number="10"></dmx-serverconnect>
+
+<dmx-serverconnect id="DetailsPL" url="/api/Contrat/detailsPL" dmx-param:idcontrat="id_contrat.data.idcontrat"></dmx-serverconnect>
+
+
+<dmx-data-view id="Portefeuille" dmx-bind:data="ApiGetFacture.data.api.data" dmx-bind:pagesize="20"></dmx-data-view>
+
+
+<dmx-serverconnect id="scRole" url="/api/Contrat/Role" dmx-param:idcontrat="id_contrat.data.idcontrat"></dmx-serverconnect>
+
+
+<div class="modal text-white fade" id="invalid" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light text-danger text-center">
+                <h5 class="modal-title fw-bold lead small">Infos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-danger fw-bold shadow-sm mark">Aucun contrat retrouvé</p>
+            </div>
+            <div class="modal-footer bg-body">
+                <button type="button" class="btn btn-secondary bg-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal text-white fade" id="invalid1" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light text-danger text-center">
+                <h5 class="modal-title fw-bold lead small">Infos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-danger fw-bold shadow-sm mark">Aucun Client retrouvé</p>
+            </div>
+            <div class="modal-footer bg-body">
+                <button type="button" class="btn btn-secondary bg-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+<dmx-serverconnect id="ApiGetFacture" url="/api/Portefeuille/ReadPortefeuille" dmx-param:idcontrat="id_contrat.data.idcontrat" dmx-on:unauthorized="Deconn.reload()" dmx-on:invalid="invalid.show()"></dmx-serverconnect>
+<meta name="ac:route" content="/CompteEnLigne/Portefeuille">
+<div class="container-lg mw-100 small mb-5 ps-1 pe-3">
+    <p class="fw-bold text-center lh-lg mt-3 lead text-black"><i class="fas fa-scroll">&nbsp;&nbsp;</i>Details Contrat</p>
+
+
+
+
+
+
+
+    <div class="row mt-2 me-0 ps-2 pe-0">
+        <div class="rounded-top rounded-2 small scrollable-column ps-0 pe-0 col-12" style="min-height: 79vh;height: auto;">
+
+
+
+
+
+
+
+
+
+            <div class="row ms-1 ps-0">
+
+                <div class="col border-dark mt-0 pb-1">
+                    <%- await include('/partials/contratDetailsMini', Object.assign({}, locals)) %>
+                </div>
+            </div>
+            <div class="row align-items-start mt-2 mb-4">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="col pe-1">
+                    <div class="card shadow-sm border rounded-3 border-light-subtle">
+                        <div class="card-body pt-0 ps-1 pe-1">
+                            <div class="row">
+                                <div class="col">
+                                    <ul class="nav initialism nav-tabs mt-3 mb-2 ps-1 pe-1" id="navTabs1_tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active fw-bolder" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true"><i class="fas fa-copy"></i>&nbsp;&nbsp;<font face="Font Awesome 5 Free">COMPTE</font></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-bolder" id="navTabs1_4_tab1" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_2" aria-selected="false"><i class="fas fa-copy"></i>&nbsp;&nbsp;<font face="Font Awesome 5 Free">DEMANDES</font></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-bolder" id="navTabs1_2_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_2" aria-selected="false"><i class="fas fa-map-marker-alt"></i>&nbsp; DETAILS PL</a>
+                                        </li>
+                                        <li class="nav-item d-none d-sm-block">
+                                            <a class="nav-link fw-bolder" id="navTabs1_3_tab1" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_4" role="tab" aria-controls="navTabs1_2" aria-selected="false"><i class="fas fa-user-tag"></i>&nbsp; ROLE</a>
+                                        </li>
+
+                                    </ul>
+                                    <div class="tab-content" id="navTabs1_content">
+                                        <div class="tab-pane show active fade mt-3 pb-3 ps-2 pe-2" id="navTabs1_1" role="tabpanel">
+                                            <div class="row rounded-2 pt-0">
+                                                <div class="rounded rounded-2 col-12 border-warning mt-0 pb-2 ps-1 pe-1">
+
+                                                    <h5 class="lh-1 fw-bold text-center text-uppercase mt-2 mb-3">Mon Portefeuille</h5>
+                                                    <ul class="pagination  lh-1 justify-content-start" dmx-dataview="Portefeuille" dmx-generator="bs5paging">
+                                                        <li class="page-item d-none d-lg-block" dmx-class:disabled="Portefeuille.page == 1" aria-label="First">
+                                                            <a href="javascript:void(0)" class="page-link d-none d-sm-block" dmx-on:click="Portefeuille.first()"><span aria-hidden="true">&lsaquo;&lsaquo;</span></a>
+                                                        </li>
+                                                        <li class="page-item" dmx-class:disabled="Portefeuille.page == 1" aria-label="Previous">
+                                                            <a href="javascript:void(0)" class="page-link" dmx-on:click="Portefeuille.prev()"><span aria-hidden="true">&lsaquo;</span></a>
+                                                        </li>
+                                                        <li class="page-item" dmx-class:active="title == Portefeuille.page" dmx-class:disabled="!active" dmx-repeat="Portefeuille.getDataViewPagination(2,1,'...')">
+                                                            <a href="javascript:void(0)" class="page-link" dmx-on:click="Portefeuille.select(page)">{{title)}}</a>
+                                                        </li>
+                                                        <li class="page-item" dmx-class:disabled="Portefeuille.page == Portefeuille.pages" aria-label="Next">
+                                                            <a href="javascript:void(0)" class="page-link" dmx-on:click="Portefeuille.next()"><span aria-hidden="true">&rsaquo;</span></a>
+                                                        </li>
+                                                        <li class="page-item d-none d-lg-block" dmx-class:disabled="Portefeuille.page == Portefeuille.pages" aria-label="Last">
+                                                            <a href="javascript:void(0)" class="page-link d-none d-sm-block" dmx-on:click="Portefeuille.last()"><span aria-hidden="true">&rsaquo;&rsaquo;</span></a>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover table-sm text-center shadow-sm lh-base">
+                                                            <thead class="initialism text-primary">
+                                                                <tr class="text-light lh-lg">
+                                                                    <th class="shadow-sm bg-primary bg-opacity-75 text-light">N pièce</th>
+                                                                    <th class="shadow-sm bg-primary bg-opacity-75 text-light">Date</th>
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75 w-25">Type Mouvement</th>
+                                                                    <th class="shadow-sm bg-primary bg-opacity-75 text-light">Débit</th>
+                                                                    <th class="shadow-sm bg-primary bg-opacity-75 text-light">Crédit</th>
+                                                                    <th class="shadow-sm bg-primary bg-opacity-75 text-light d-none d-sm-table-cell">Date echeance</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="Portefeuille.data" id="tableRepeat4">
+                                                                <tr>
+                                                                    <td dmx-text="trid" class="fw-bold"></td>
+                                                                    <td dmx-text="date.formatDate('dd-MM-yyyy')"></td>
+                                                                    <td dmx-text="libelle_Type_Mvt" class="fw-bold bg-primary bg-opacity-50 text-white"></td>
+                                                                    <td dmx-text="ddebit.formatNumber(0, ' ', ' ')"></td>
+                                                                    <td dmx-text="credit.formatNumber(0, ' ', ' ')"></td>
+                                                                    <td dmx-text="date_Echeance.formatDate('dd-MM-yyyy')" class="d-none d-sm-table-cell"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="d-block text-center">
+                                                        <div class="spinner-border spinner-border-sm text-primary" role="status" dmx-show="ApiGetFacture.state.executing">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="card rounded-2 rounded border-white shadow-sm mt-3">
+                                                        <div class="card-header text-light border bg-white">
+                                                            <h6 class="text-black fw-bold text-uppercase lh-1 mt-2"><i class="fas fa-coins">&nbsp; &nbsp;</i>Total Solde</h6>
+                                                        </div>
+                                                        <div class="card-body text-primary text-uppercase">
+                                                            <p class="card-text text-dark"><b>Total Crédit :&nbsp; {{ApiGetFacture.data.api.data.sum(`credit`).formatCurrency(' ', '.', ' ', 0)}} FDJ</b></p>
+                                                            <p class="card-text text-danger"><b>Total Débit :&nbsp; {{ApiGetFacture.data.api.data.sum(`ddebit`).formatCurrency(' ', '.', ' ', 0)}} FDJ</b></p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade ps-2 pe-2" id="navTabs1_2" role="tabpanel">
+                                            <div class="container-fluid mt-3 ps-0 pe-0">
+                                                <h5 class="lh-1 fw-bold text-center text-uppercase mb-3 pt-2">Details Points de Livraison</h5>
+
+                                                <div class="row pb-2">
+
+                                                    <div class="mt-2 col-xxl-6 col-xl-6 col-lg-6">
+                                                        <ul class="list-group shadow-sm">
+
+                                                            <li class="list-group-item bg-opacity-75 active bg-primary">№&nbsp; PL : <b>{{DetailsPL.data.PL[0].codepl}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</b><span>ID </span><span>PL :</span><b> {{DetailsPL.data.PL[0].id_pl}}&nbsp;</b></li>
+                                                            <li class="list-group-item bg-opacity-10">Addresse Physique :&nbsp;&nbsp;<b>{{DetailsPL.data.PL[0].adr_physique}}</b></li>
+                                                            <li class="list-group-item">Support : <b>{{DetailsPL.data.PL[0].code_support}}</b></li>
+                                                            <li class="list-group-item">PS Permise : <b>{{DetailsPL.data.PL[0].ps_permise}}</b></li>
+                                                            <li class="list-group-item">Forme energie : <b>{{DetailsPL.data.PL[0].formeng}}</b></li>
+                                                            <li class="list-group-item">Etat PL : <b>{{DetailsPL.data.PL[0].etatpl}}</b></li>
+                                                            <li class="list-group-item">Access Compteur : <b>{{DetailsPL.data.PL[0].accessc}}</b></li>
+                                                            <li class="list-group-item">Etat Coupure : <b>{{DetailsPL.data.PL[0].etat_coupure}}</b></li>
+                                                            <li class="list-group-item">Commentaire 1 : <b>{{DetailsPL.data.PL[0].coment1}}</b></li>
+                                                            <li class="list-group-item">Commentaire 2 : <b>{{DetailsPL.data.PL[0].coment2}}</b></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="mt-2 col-xxl-6 col-xl-6 col-lg-6">
+                                                        <ul class="list-group shadow-sm">
+                                                            <li class="list-group-item">Rang branchement : <b>{{DetailsPL.data.PL[0].rang_branchement}}</b></li>
+                                                            <li class="list-group-item">Cellule : <b>{{DetailsPL.data.PL[0].nom_cellule}}</b></li>
+                                                            <li class="list-group-item">Lieu Geographique : <b>{{DetailsPL.data.PL[0].lieu_geo}}</b></li>
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade ps-2 pe-2" id="navTabs1_3" role="tabpanel">
+                                            <div class="container-fluid mt-3 ps-0 pe-0">
+
+                                                <h5 class="lh-1 fw-bold text-center mt-4 mb-3">MES DEMANDES</h5>
+
+                                                <div class="row">
+                                                    <div dmx-repeat:repeatdemandes="scMesDemandes.data.api.data" class="col-12 col-md-4 mb-3">
+                                                        <div class="card shadow-sm border bg-opacity-75 text-bg-light">
+                                                            <div class="card-body">
+                                                                <div class="row pt-0 pb-0">
+                                                                    <div class="col-4 pt-0 pb-0 pt-xxl-4 col-xxl-2">
+                                                                        <img width="50" src="/assets/images/dossier.png" class="img-fluid img-thumbnail mt-xxl-2">
+                                                                    </div>
+                                                                    <div class="col lh-1 shadow-sm border me-2 pt-2 pb-0 bg-white text-black rounded-2 text-uppercase">
+                                                                        <table class="table table-sm table-borderless">
+                                                                            <tbody>
+                                                                                <tr class="lh-1">
+                                                                                    <th scope="row" class="fw-bold">Type de Demande</th>
+                                                                                    <td>: {{typeDemande}}</td>
+                                                                                </tr>
+                                                                                <tr class="lh-1">
+                                                                                    <th scope="row" class="fw-bolder">Type d'Intervention</th>
+                                                                                    <td>: {{typeIntervention}}</td>
+                                                                                </tr>
+                                                                                <tr class="lh-1">
+                                                                                    <th scope="row">Statut</th>
+                                                                                    <td class="fw-bold">: {{statut}}</td>
+                                                                                </tr>
+                                                                                <tr class="lh-1">
+                                                                                    <th scope="row">Date de Creation</th>
+                                                                                    <td>: {{dateCrea}}</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade ps-2 pe-2" id="navTabs1_4" role="tabpanel">
+                                            <div class="container-fluid mt-3 ps-0 pe-0">
+                                                <h5 class="lh-1 fw-bold text-center mt-4 mb-3">ROLE</h5>
+
+                                                <div class="row pb-2">
+
+                                                    <div class="col-xxl-6 col-xl-6 col-lg-7">
+                                                        <div class="card shadow-sm">
+                                                            <ul class="list-group list-group-flush">
+
+                                                                <li class="list-group-item">Nom :<b> {{scRole.data.Role[0].nom}}</b></li>
+                                                                <li class="list-group-item">№ Contrat : <b>{{scRole.data.Role[0].num_contrat}}</b></li>
+                                                                <li class="list-group-item active bg-primary bg-opacity-75">Role :<b> {{scRole.data.Role[0].lib_court}}</b></li>
+                                                            </ul>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="d-block">
+                        <img src="/assets/images/edd1.jpg" class="img-fluid img-thumbnail d-lg-none mt-md-4 mt-sm-4 mt-4">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+</div>

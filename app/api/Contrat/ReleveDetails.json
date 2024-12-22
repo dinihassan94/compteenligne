@@ -1,0 +1,317 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idreleve"
+      }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "token"
+      },
+      {
+        "type": "text",
+        "name": "idClient"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "",
+      "module": "core",
+      "action": "condition",
+      "options": {
+        "if": "{{$_COOKIE.idClient}}",
+        "then": {
+          "steps": {
+            "name": "api",
+            "module": "api",
+            "action": "send",
+            "options": {
+              "url": "{{'http://192.168.9.60:8082/api/Releves/mobile/'+$_GET.idreleve}}",
+              "schema": [
+                {
+                  "type": "object",
+                  "name": "data",
+                  "sub": [
+                    {
+                      "type": "number",
+                      "name": "numReleve"
+                    },
+                    {
+                      "type": "number",
+                      "name": "numFacture"
+                    },
+                    {
+                      "type": "number",
+                      "name": "numLine"
+                    },
+                    {
+                      "type": "number",
+                      "name": "montant"
+                    },
+                    {
+                      "type": "number",
+                      "name": "status"
+                    },
+                    {
+                      "type": "number",
+                      "name": "index_A"
+                    },
+                    {
+                      "type": "number",
+                      "name": "ancienIndex"
+                    },
+                    {
+                      "type": "text",
+                      "name": "periode"
+                    },
+                    {
+                      "type": "text",
+                      "name": "dateReleve"
+                    },
+                    {
+                      "type": "text",
+                      "name": "datePF"
+                    },
+                    {
+                      "type": "text",
+                      "name": "dateEmission"
+                    },
+                    {
+                      "type": "text",
+                      "name": "compteur"
+                    },
+                    {
+                      "type": "text",
+                      "name": "typeReleve"
+                    },
+                    {
+                      "type": "text",
+                      "name": "commentaire"
+                    },
+                    {
+                      "type": "text",
+                      "name": "autorise"
+                    },
+                    {
+                      "type": "number",
+                      "name": "conso"
+                    },
+                    {
+                      "type": "text",
+                      "name": "image_1"
+                    },
+                    {
+                      "type": "text",
+                      "name": "image_2"
+                    },
+                    {
+                      "type": "text",
+                      "name": "couleur"
+                    },
+                    {
+                      "type": "text",
+                      "name": "statut"
+                    },
+                    {
+                      "type": "text",
+                      "name": "statuT_RELEVE"
+                    },
+                    {
+                      "type": "boolean",
+                      "name": "labelMontant"
+                    },
+                    {
+                      "type": "boolean",
+                      "name": "isEnable"
+                    },
+                    {
+                      "type": "number",
+                      "name": "contrat"
+                    },
+                    {
+                      "type": "text",
+                      "name": "photo_Releve"
+                    }
+                  ]
+                },
+                {
+                  "type": "object",
+                  "name": "headers",
+                  "sub": [
+                    {
+                      "type": "text",
+                      "name": "content-type"
+                    },
+                    {
+                      "type": "text",
+                      "name": "date"
+                    },
+                    {
+                      "type": "text",
+                      "name": "server"
+                    },
+                    {
+                      "type": "text",
+                      "name": "transfer-encoding"
+                    }
+                  ]
+                }
+              ],
+              "headers": {
+                "Authorization": "{{'Bearer '+$_COOKIE.token}}"
+              }
+            },
+            "output": true,
+            "meta": [
+              {
+                "type": "object",
+                "name": "data",
+                "sub": [
+                  {
+                    "type": "number",
+                    "name": "numReleve"
+                  },
+                  {
+                    "type": "number",
+                    "name": "numFacture"
+                  },
+                  {
+                    "type": "number",
+                    "name": "numLine"
+                  },
+                  {
+                    "type": "number",
+                    "name": "montant"
+                  },
+                  {
+                    "type": "number",
+                    "name": "status"
+                  },
+                  {
+                    "type": "number",
+                    "name": "index_A"
+                  },
+                  {
+                    "type": "number",
+                    "name": "ancienIndex"
+                  },
+                  {
+                    "type": "text",
+                    "name": "periode"
+                  },
+                  {
+                    "type": "text",
+                    "name": "dateReleve"
+                  },
+                  {
+                    "type": "text",
+                    "name": "datePF"
+                  },
+                  {
+                    "type": "text",
+                    "name": "dateEmission"
+                  },
+                  {
+                    "type": "text",
+                    "name": "compteur"
+                  },
+                  {
+                    "type": "text",
+                    "name": "typeReleve"
+                  },
+                  {
+                    "type": "text",
+                    "name": "commentaire"
+                  },
+                  {
+                    "type": "text",
+                    "name": "autorise"
+                  },
+                  {
+                    "type": "number",
+                    "name": "conso"
+                  },
+                  {
+                    "type": "text",
+                    "name": "image_1"
+                  },
+                  {
+                    "type": "text",
+                    "name": "image_2"
+                  },
+                  {
+                    "type": "text",
+                    "name": "couleur"
+                  },
+                  {
+                    "type": "text",
+                    "name": "statut"
+                  },
+                  {
+                    "type": "text",
+                    "name": "statuT_RELEVE"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "labelMontant"
+                  },
+                  {
+                    "type": "boolean",
+                    "name": "isEnable"
+                  },
+                  {
+                    "type": "number",
+                    "name": "contrat"
+                  },
+                  {
+                    "type": "text",
+                    "name": "photo_Releve"
+                  }
+                ]
+              },
+              {
+                "type": "object",
+                "name": "headers",
+                "sub": [
+                  {
+                    "type": "text",
+                    "name": "content-type"
+                  },
+                  {
+                    "type": "text",
+                    "name": "date"
+                  },
+                  {
+                    "type": "text",
+                    "name": "server"
+                  },
+                  {
+                    "type": "text",
+                    "name": "transfer-encoding"
+                  }
+                ]
+              }
+            ],
+            "outputType": "object"
+          }
+        },
+        "else": {
+          "steps": {
+            "name": "Unauthorized",
+            "module": "core",
+            "action": "response",
+            "options": {
+              "data": "Unauthorized",
+              "status": 401
+            }
+          }
+        }
+      },
+      "outputType": "boolean"
+    }
+  }
+}

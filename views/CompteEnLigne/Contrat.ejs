@@ -1,0 +1,504 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="Portefeuille" appconnect="local" components="{dmxBootstrap5Navigation:{},dmxAnimateCSS:{},dmxValidator:{},dmxFormatter:{},dmxBootstrap5TableGenerator:{},dmxBootstrap5Modal:{},dmxDataTraversal:{},dmxCharts:{},dmxDatastore:{},dmxBootstrap5PagingGenerator:{},dmxBootstrap5Collapse:{},dmxLightbox:{},dmxTagify:{},dmxStripe:{}}" jquery_slim_35="local" -->
+<div class="modal fade" id="Relevephoto" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-uppercase fw-bold"><i class="fas fa-camera">&nbsp;&nbsp;</i>Photo Releve</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-light mt-5 pt-5" dmx-show="ReleveDetails.state.executing">Chargement en cours ...</p>
+                <div class="d-block bg-dark pt-3 pb-3 text-center" id="relevephotoDiv" dmx-hide="ReleveDetails.state.executing">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dmx-serverconnect id="scSimulation" url="/api/Contrat/Simulation" dmx-param:index="input1.value" dmx-param:idcontrat="id_contrat.data.idcontrat" dmx-param:codecompteur="293572" noload="true"></dmx-serverconnect>
+
+<dmx-serverconnect id="scConso" url="/api/conso/ConsoMoyenne" dmx-param:idcontrat="id_contrat.data.idcontrat" dmx-on:done="run({runJS:{outputType:'text',function:'generateDiagramPage',args:[`scConso.data.api.data`]}})"></dmx-serverconnect>
+
+
+<dmx-data-view id="client" dmx-bind:data="ApiGetPayeur.data.api.data" dmx-bind:pagesize="4"></dmx-data-view>
+
+
+<dmx-serverconnect id="ApiConsoKwh" url="/api/conso/ConsoMoyenne" dmx-param:idcontrat="id_contrat.data.idcontrat" dmx-on:success="run({runJS:{function:'fetchData1',args:[`id_contrat.data.idcontrat`],outputType:'text'}})" dmx-on:unauthorized="Deconn.reload()"></dmx-serverconnect>
+
+<dmx-data-detail id="ReleveDetail" dmx-bind:data="ApiReleve.data.api.data" key="numReleve"></dmx-data-detail>
+
+
+
+
+<div class="modal text-white fade" id="invalid" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light text-danger text-center">
+                <h5 class="modal-title fw-bold lead small">Infos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-danger fw-bold shadow-sm mark">Aucun contrat retrouvé</p>
+            </div>
+            <div class="modal-footer bg-body">
+                <button type="button" class="btn btn-secondary bg-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal text-white fade" id="invalid1" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light text-danger text-center">
+                <h5 class="modal-title fw-bold lead small">Infos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-danger fw-bold shadow-sm mark">Aucun Client retrouvé</p>
+            </div>
+            <div class="modal-footer bg-body">
+                <button type="button" class="btn btn-secondary bg-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal fade" id="releve" is="dmx-bs5-modal" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-opacity-75 text-primary">
+                <h5 class="modal-title" dmx-text="'Photo de la Relève'">Recherche Reléve</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" dmx-on:click="consoKWH.hide()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="text-center bg-dark rounded rounded-2 border-success border ms-3 col">
+
+
+                        <p class="text-light mt-5 pt-5" dmx-show="ReleveDetails.state.executing">Chargement en cours ...</p>
+                        <div class="d-block bg-dark pt-3 pb-3" id="relevephoto" dmx-hide="ReleveDetails.state.executing">
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<div class="modal fade" id="modal1" is="dmx-bs5-modal" tabindex="-1" nobackdrop="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-opacity-75 bg-light text-primary">
+                <h5 class="modal-title">Num Contrat : <b>{{apiportefeuille.data.api.data.numContrat}}</b></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm small table-bordered table-borderless">
+                        <tbody dmx-generator="bs5table" dmx-populate="apiportefeuille.data.api.data">
+                            <tr>
+                                <th>Num contrat</th>
+                                <td dmx-text="apiportefeuille.data.api.data.numContrat" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <th>Nom</th>
+                                <td dmx-text="apiportefeuille.data.api.data.nom" class="fw-bold text-primary shadow-sm"></td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td dmx-text="apiportefeuille.data.api.data.adresse"></td>
+                            </tr>
+                            <tr>
+                                <th>Adresse physique</th>
+                                <td dmx-text="apiportefeuille.data.api.data.adressePhysique"></td>
+                            </tr>
+                            <tr>
+                                <th>Num pl</th>
+                                <td dmx-text="apiportefeuille.data.api.data.numPl" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td dmx-text="apiportefeuille.data.api.data.phone"></td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td dmx-text="apiportefeuille.data.api.data.email"></td>
+                            </tr>
+                            <tr>
+                                <th>Payeur</th>
+                                <td dmx-text="apiportefeuille.data.api.data.payeur" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <th>Utilisateur</th>
+                                <td dmx-text="apiportefeuille.data.api.data.utilisateur"></td>
+                            </tr>
+                            <tr>
+                                <th>Solde</th>
+                                <td dmx-text="apiportefeuille.data.api.data.solde" class="fw-bold text-danger"></td>
+                            </tr>
+                            <tr>
+                                <th>Position</th>
+                                <td dmx-text="apiportefeuille.data.api.data.position"></td>
+                            </tr>
+                            <tr>
+                                <th>Code compteur</th>
+                                <td dmx-text="apiportefeuille.data.api.data.codeCompteur"></td>
+                            </tr>
+                            <tr>
+                                <th>Ps</th>
+                                <td dmx-text="apiportefeuille.data.api.data.ps" class="fw-bold"></td>
+                            </tr>
+                            <tr>
+                                <th>Tarif</th>
+                                <td dmx-text="apiportefeuille.data.api.data.tarif"></td>
+                            </tr>
+                            <tr>
+                                <th>Statut contrat</th>
+                                <td dmx-text="apiportefeuille.data.api.data.statutContrat" class="fw-bold text-black-50"></td>
+                            </tr>
+                            <tr>
+                                <th>Is enable</th>
+                                <td dmx-text="apiportefeuille.data.api.data.isEnable"></td>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <td dmx-text="apiportefeuille.data.api.data.image"></td>
+                            </tr>
+                            <tr>
+                                <th>Couleur</th>
+                                <td dmx-text="apiportefeuille.data.api.data.couleur"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<dmx-serverconnect id="ApiReleve" url="/api/Contrat/releve" dmx-param:idcontrat="id_contrat.data.idcontrat" dmx-on:unauthorized="Deconn.reload()"></dmx-serverconnect>
+<meta name="ac:route" content="/CompteEnLigne/Contrat">
+<dmx-serverconnect id="ReleveDetails" url="/api/Contrat/ReleveDetails" noload="true" dmx-param:idreleve="" dmx-on:done="run([{runJS:{name:'PhotoReleveJs',outputType:'text',function:'fetchImageAndDisplay',args:[`ReleveDetails.data.api.data.photo_Releve`]}},{condition:{outputType:'boolean',if:'PhotoReleveJs',then:{steps:{run:{name:'ModalPhoto',outputType:'text',action:`Relevephoto.show()`}}}}}])"></dmx-serverconnect>
+<div class="container-lg mw-100 small ps-1 pe-3">
+
+
+
+    <div class="row text-sm-center">
+        <div class="col text-sm-center text-center">
+
+            <p class="fw-bold text-sm-center lh-lg mt-3 lead text-black"><i class="fas fa-chart-bar">&nbsp;&nbsp;</i>Suivi Relève</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <div class="row border-dark ms-0 ps-0 pe-0">
+        <div class="col small">
+            <%- await include('/partials/contratDetailsMini', Object.assign({}, locals)) %>
+        </div>
+    </div>
+    <div class="row mt-xxl-3 ps-2 pe-2">
+        <div class="rounded-top rounded-2 small border-dark col ms-0 ps-0 pe-0" style="min-height: 79vh;height: auto;">
+
+
+
+
+
+
+
+
+
+
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <div class="row">
+                <div class="col pe-0">
+                    <div class="card shadow-sm border rounded-3 border-light-subtle">
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col ps-1 pe-1">
+                                    <ul class="nav mt-3 mb-2 me-0 pe-0 nav-tabs initialism" id="navTabs1_tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-bolder active" id="navTabs1_1_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_1" role="tab" aria-controls="navTabs1_1" aria-selected="true"><i class="fas fa-copy">&nbsp;&nbsp;</i>Relève</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-bolder" id="navTabs1_3_tab" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_3" role="tab" aria-controls="navTabs1_3" aria-selected="false"><i class="fas fa-chart-bar">&nbsp;&nbsp;</i>suivi-conso</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-bolder" id="navTabs1_2_tab1" data-bs-toggle="tab" href="#" data-bs-target="#navTabs1_2" role="tab" aria-controls="navTabs1_3" aria-selected="false">
+                                                <font face="Font Awesome 5 Free"><i class="fas fa-calculator">&nbsp;&nbsp;</i>Simulation</font>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-bolder visually-hidden" id="navTabs1_2_tab2" data-bs-toggle="tab" href="#" data-bs-target="#tabPane1" role="tab" aria-controls="navTabs1_3" aria-selected="false">
+                                                <font face="Font Awesome 5 Free">Acceuil</font>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="navTabs1_conten">
+
+                                        <div class="tab-pane fade pb-3 ps-2 pe-1 show active" id="navTabs1_1" role="tabpanel">
+                                            <div class="row pt-0 pb-0">
+                                                <div class="rounded rounded-2 col-12 border-warning pb-2 ps-0 pe-1">
+
+                                                    <h5 class="lh-1 fw-bold text-center mt-3 mb-3">MA RELÈVE</h5>
+                                                    <div class="table-responsive">
+                                                        <table class="table text-center table-hover shadow-sm lh-lg table-sm">
+                                                            <thead>
+                                                                <tr class="text-light lh-lg initialism">
+                                                                    <th scope="row" class="text-bg-primary bg-opacity-75"></th>
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75">№ releve</th>
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75">Date releve</th>
+
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75">Index</th>
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75 d-none d-sm-table-cell">Conso</th>
+
+
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75">Montant</th>
+                                                                    <th class="shadow-sm bg-primary bg-opacity-75 text-white d-none d-sm-table-cell">№&nbsp; facture</th>
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75 d-none d-sm-table-cell">Type releve</th>
+                                                                    <th class="shadow-sm bg-primary text-light bg-opacity-75 d-none d-sm-table-cell">Date pf</th>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody is="dmx-repeat" dmx-generator="bs5table" dmx-bind:repeat="ApiReleve.data.api.data" id="tableRepeat2" class="lh-base">
+                                                                <tr dmx-on:click="ReleveDetail.select(numReleve)" dmx-class:table-primary="numReleve==ReleveDetail.data.numReleve" dmx-on:dblclick="ReleveDetails.load({idreleve: ReleveDetail.data.numReleve})" dmx-class:table-warning="numFacture==null">
+                                                                    <td><i class="fas fa-check-square fa-2x" dmx-show="numFacture!=null" dmx-style:color="'green'"></i><i class="fas fa-exclamation-triangle fa-2x" dmx-show="numFacture==null" dmx-style:color="'red'"></i></td>
+                                                                    <td dmx-text="numReleve" class="fw-bold"></td>
+                                                                    <td dmx-text="dateReleve.formatDate('dd-MM-yyyy ')"></td>
+
+                                                                    <td dmx-text="index_A" class="fw-bold"></td>
+
+                                                                    <td dmx-text="conso" class="d-none d-sm-table-cell"></td>
+                                                                    <td dmx-text="montant.formatCurrency(' ', ' ', ' ', 0)"></td>
+                                                                    <td dmx-text="numFacture" class="d-none d-sm-table-cell"></td>
+                                                                    <td dmx-text="typeReleve" class="d-none d-sm-table-cell"></td>
+                                                                    <td dmx-text="datePF.formatDate('dd-MM-yyyy ')" class="d-none d-sm-table-cell"></td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+
+                                                    <div class="d-block text-center">
+                                                        <div class="spinner-border spinner-border-sm text-primary" role="status" dmx-show="ApiReleve.state.executing">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade pb-2 ps-0 pe-0" id="navTabs1_3" role="tabpanel">
+                                            <div class="container-fluid mt-3 rounded-2">
+                                                <div class="row rounded-2 border-dark rounded-top justify-content-center">
+
+                                                    <div class="col-12" style="max-width: 1000px;">
+                                                        <h5 class="lh-1 fw-bold text-uppercase text-center mt-3 mb-3">suivi consommation</h5>
+                                                        <div class="card shadow-sm border">
+                                                            <div class="card-body">
+
+                                                                <h6 class="card-title">Consommation en Kwh</h6>
+                                                                <div class="row">
+                                                                    <div class="col" id="javascript"></div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade pb-2 ps-0 pe-0" id="navTabs1_2" role="tabpanel">
+                                            <div class="row rounded-2 ps-xxl-0 pe-xxl-0 mt-3 ms-1 me-1 ps-1 pe-1">
+                                                <div class="col ps-xxl-0 pe-xxl-0">
+                                                    <h5 class="lh-1 fw-bold text-uppercase text-center mt-3 mb-3">Simulation</h5>
+
+                                                    <div class="row justify-content-xxl-center justify-content-center">
+                                                        <div class="col-xl-6 col-lg-6 col-xxl-5 ps-0 pe-0">
+                                                            <div class="card-group">
+
+
+                                                                <div class="card border rounded rounded-2 border-dark-subtle">
+                                                                    <div class="card-header bg-white pb-0">
+                                                                        <p class="text-start lh-base"><i class="fas fa-hand-point-right"></i>&nbsp; POUR OBTENIR LE PRIX DE VOTRE CONSOMMATION<b> (EN TEMPS RÉEL),</b> MERCI DE BIEN RENSEIGNER L'INDEX CORRECTEMENT, PUIS APPUYER SUR <b>&lt;&lt;SIMULER&gt;&gt;</b></p>
+                                                                    </div>
+                                                                    <div class="card-body text-xxl-center text-center text-primary shadow-sm bg-primary bg-opacity-75">
+
+                                                                        <h6 class="card-title mb-4 ps-1 lh-base fw-bold text-center text-xxl-center lead text-light"><i class="fas fa-question-circle">&nbsp;&nbsp;</i>Estimez votre facture d'électricité</h6>
+
+                                                                        <div id="form">
+                                                                            <div class="form-group md-3">
+
+                                                                                <input type="number" class="form-control" id="input1" name="input1" aria-describedby="input1_help" placeholder="INDEX COMPTEUR" required=""><button id="btn1" class="btn shadow-sm mt-2 fw-bold bg-opacity-75 w-100 btn-warning" dmx-on:click="input1.validate();scSimulation.load({},true)"><i class="fas fa-calculator">&nbsp;&nbsp;</i>Simuler</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="card-footer bg-white shadow-sm" dmx-show="scSimulation.data.api.data" dmx-animate-enter="bounceIn">
+
+
+
+                                                                        <h5 class="fw-bolder lh-base text-primary mt-3 bg-opacity-25 lead text-start"><a href="#"><i class="fas fa-calculator">&nbsp;</i></a>Estimation</h5>
+                                                                        <div class="d-block">
+                                                                            <p class="text-end">Estimée le {{scSimulation.data.api.data.dateCra}}</p>
+                                                                            <p class="fw-bold lh-lg lead"><i class="fas fa-charging-station">&nbsp;&nbsp;</i>Consommation :&nbsp;&nbsp;<span style="font-weight: normal;">{{scSimulation.data.api.data.conso}} </span><span style="">x</span><span style="">KWH</span></p>
+                                                                            <p class="fw-bolder lead"><i class="fas fa-money-check">&nbsp;&nbsp;</i>Montant :&nbsp;&nbsp;<span style="font-weight: normal;">{{scSimulation.data.api.data.montant.formatNumber(0, ' ', ' ')}}</span> FDJ</p>
+
+                                                                        </div>
+                                                                        <ul class="list-group shadow-sm mb-4">
+
+
+
+
+
+                                                                            <li class="list-group-item shadow-sm"><b>Message : </b><span>{{scSimulation.data.api.data.message}}</span></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-block">
+                        <img src="/assets/images/edd1.jpg" class="img-fluid img-thumbnail mt-4 d-lg-none mt-md-4 mt-sm-4">
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function generateDiagramPage(diagramtext) {
+    // Set the innerHTML of the target div to the received HTML
+    document.getElementById('javascript').innerHTML = diagramtext;
+
+    // Find all script tags in the container
+    const scripts = document.getElementById('javascript').getElementsByTagName('script');
+
+    // Load scripts one by one
+    let loadNextScript = (index) => {
+        if (index >= scripts.length) return; // Exit if no more scripts
+
+        const script = scripts[index];
+        const newScript = document.createElement('script');
+
+        // Set the script's src or innerHTML
+        if (script.src) {
+            newScript.src = script.src; // Handle external script
+            newScript.onload = () => loadNextScript(index + 1); // Load next script after this one
+        } else {
+            newScript.innerHTML = script.innerHTML; // Handle inline script
+        }
+
+        // Append the script to the body to execute it
+        document.body.appendChild(newScript);
+    };
+
+    // Start loading scripts
+    loadNextScript(0);
+}
+
+
+
+ function fetchImageAndDisplay(base64String) {
+    const targetDiv = document.getElementById("relevephotoDiv");
+    
+    // Clear previous image
+    while (targetDiv.firstChild) {
+        targetDiv.removeChild(targetDiv.firstChild);
+    }
+
+    // Decode base64 to binary
+    const byteCharacters = atob(base64String);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: 'image/jpeg' });
+    const dataUrl = URL.createObjectURL(blob);
+
+    // Create and load the image
+    const image = new Image();
+    image.onload = function () {
+        // Set image opacity to 0 for the initial load
+        image.style.opacity = 0;
+
+        // Make image responsive by using CSS
+        image.style.maxWidth = "100%";
+        image.style.height = "auto";
+        
+        targetDiv.appendChild(image);
+        
+        // Trigger reflow to apply initial opacity
+        image.offsetWidth;
+
+        // Add bounce-in effect using CSS transition
+        image.style.transition = 'transform 1s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.2s ease-in-out';
+        image.style.opacity = 1;
+        image.style.transform = 'scale(0.5)';
+
+        // Trigger reflow to apply transform
+        image.offsetWidth;
+
+        // Set final transform to create the bounce effect
+        image.style.transform = 'scale(1)';
+    };
+
+    // Set the image source to the blob URL
+    image.src = dataUrl;
+}
+
+
+
+
+
+
+</script>

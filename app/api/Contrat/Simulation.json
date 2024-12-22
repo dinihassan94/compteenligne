@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "index"
+      },
+      {
+        "type": "number",
+        "name": "idcontrat"
+      },
+      {
+        "type": "number",
+        "name": "codecompteur"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "number",
+        "name": "index"
+      },
+      {
+        "type": "number",
+        "name": "idcontrat"
+      },
+      {
+        "type": "number",
+        "name": "codecompteur"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "api",
+      "module": "api",
+      "action": "send",
+      "options": {
+        "url": "http://192.168.9.60:8082/api/Simulations",
+        "schema": [
+          {
+            "type": "object",
+            "name": "data",
+            "sub": [
+              {
+                "type": "number",
+                "name": "index"
+              },
+              {
+                "type": "number",
+                "name": "contrat"
+              },
+              {
+                "type": "number",
+                "name": "conso"
+              },
+              {
+                "type": "number",
+                "name": "montant"
+              },
+              {
+                "type": "text",
+                "name": "message"
+              },
+              {
+                "type": "text",
+                "name": "compteur"
+              },
+              {
+                "type": "text",
+                "name": "dateCra"
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "name": "headers",
+            "sub": [
+              {
+                "type": "text",
+                "name": "content-type"
+              },
+              {
+                "type": "text",
+                "name": "date"
+              },
+              {
+                "type": "text",
+                "name": "server"
+              },
+              {
+                "type": "text",
+                "name": "transfer-encoding"
+              }
+            ]
+          }
+        ],
+        "method": "POST",
+        "data": {
+          "index": "{{$_GET.index}}",
+          "contrat": "{{$_GET.idcontrat}}",
+          "compteur": "{{$_GET.codecompteur}}"
+        },
+        "dataType": "json",
+        "passErrors": false,
+        "headers": {
+          "Authorization": "{{'Bearer '+$_COOKIE.token}}"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "object",
+          "name": "data",
+          "sub": [
+            {
+              "type": "number",
+              "name": "index"
+            },
+            {
+              "type": "number",
+              "name": "contrat"
+            },
+            {
+              "type": "number",
+              "name": "conso"
+            },
+            {
+              "type": "number",
+              "name": "montant"
+            },
+            {
+              "type": "text",
+              "name": "message"
+            },
+            {
+              "type": "text",
+              "name": "compteur"
+            },
+            {
+              "type": "text",
+              "name": "dateCra"
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "name": "headers",
+          "sub": [
+            {
+              "type": "text",
+              "name": "content-type"
+            },
+            {
+              "type": "text",
+              "name": "date"
+            },
+            {
+              "type": "text",
+              "name": "server"
+            },
+            {
+              "type": "text",
+              "name": "transfer-encoding"
+            }
+          ]
+        }
+      ],
+      "outputType": "object"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "token",
+    "module": "core",
+    "action": "removecookie",
+    "options": {}
+  },
+  {
+    "name": "idClient",
+    "module": "core",
+    "action": "removecookie",
+    "options": {}
+  }
+]

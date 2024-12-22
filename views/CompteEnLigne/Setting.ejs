@@ -1,0 +1,309 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="Setting" appconnect="local" components="{dmxValidator:{},dmxBootstrap5Modal:{},dmxNotifications:{},dmxBootstrap5Alert:{}}" -->
+
+<dmx-notifications id="notifies" position="bottom" align="center"></dmx-notifications>
+<dmx-serverconnect id="scReadContrat" url="/api/GetClientContrat" dmx-param:idclient="Userinfos.data.api.data[0].payeur"></dmx-serverconnect>
+<div class="modal fade" id="modalNotif" is="dmx-bs5-modal" tabindex="-1" nocloseonclick="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-bell">&nbsp;&nbsp;</i>Notification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-success">
+                <p class="text-center"><b><i class="fas fa-check-circle">&nbsp;&nbsp;</i>Merci ! Votre contact a été changé avec succès.</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalNotifMotdePasse" is="dmx-bs5-modal" tabindex="-1" nocloseonclick="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-bell">&nbsp;&nbsp;</i>Notification</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center text-success"><b>&nbsp;<i class="fas fa-check-circle">&nbsp;&nbsp;</i>Merci ! Votre mot de passe a été changé avec succès.</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mw-100 container-fluid small ps-1 pe-1">
+
+    <div class="row me-1">
+        <div class="col-12 pe-0">
+            <p class="text-center fw-bold mt-3 lh-lg lead text-black"><i class="fas fa-cog">&nbsp;</i> Paramétre&nbsp;</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="card shadow-sm rounded-3 border border-light-subtle text-bg-warning bg-opacity-50 text-black">
+                <div class="card-body pb-0 text-black">
+
+                    <h5 class="card-title text-center fw-bold"><i class="fas fa-user">&nbsp;&nbsp;</i>{{scReadContrat.data.api.data[0].nom}}</h5>
+                    <div class="row pb-0">
+                        <div class="col pb-0">
+                            <p class="text-center small"><i class="fas fa-map-marker-alt">&nbsp;&nbsp;</i>{{scReadContrat.data.api.data[0].adresse}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-7 mt-2 col-lg-4 col-xxl-4 col-xl-4">
+            <div class="card shadow-sm rounded-3 border">
+
+                <div class="card-header bg-white">
+                    <h6 class="text-uppercase fw-bold"><i class="fas fa-lock">&nbsp;&nbsp;</i>ChANGER LE MOT DE PASSE</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col lh-1">
+
+                            <form id="FormMotdePasse" is="dmx-serverconnect-form" method="post" action="/api/Security/ResetPassword" dmx-on:success="modalNotifMotdePasse.show();alert.hide()" dmx-on:error="alert.show()" dmx-on:unauthorized="Deconn.goto('/Authentification/Login')">
+                                <div class="form-group mb-3 fw-bold">
+                                    <label for="inputOldPassword" class="form-label"><i class="fas fa-key">&nbsp;&nbsp;</i>Ancien Mot de Passe</label>
+                                    <input type="password" class="form-control" id="inputOldPassword" name="OldPassword" aria-describedby="input1_help" disabled="" required="">
+                                </div>
+                                <div class="form-group mb-3 fw-bold">
+                                    <label for="inputNewPassword" class="form-label"><i class="fas fa-key">&nbsp;&nbsp;</i>Nouveau Mot de Passe</label>
+                                    <input type="password" class="form-control" id="inputNewPassword" name="NewPassword" aria-describedby="input1_help" disabled="" required="" minlength="8" data-msg-minlength="Veuillez entrer au moins {8} caractères.">
+                                </div>
+                                <div class="form-group mb-3 fw-bold">
+                                    <label for="inputNewPasswordConfirmation" class="form-label"><i class="fas fa-key">&nbsp;</i> Retaper le Mot de Passe</label>
+                                    <input class="form-control" id="inputNewPasswordConfirmation" name="NewPasswordConfirmation" aria-describedby="input1_help" disabled="" required="" data-rule-equalto="NewPassword" data-msg-equalto="Veuillez saisir à nouveau correctement votre mot de passe." type="password">
+                                </div>
+                                <div class="form-group mb-3 fw-bold visually-hidden">
+                                    <label for="inputCompteur1" class="form-label"><i class="fas fa-pager">&nbsp;&nbsp;</i>Compteur</label>
+                                    <input class="form-control" id="inputCompteur1" name="compteur1" aria-describedby="input1_help" disabled="" required="" dmx-bind:value="scReadContrat.data.api.data[0].codeCompteur">
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button id="btnSubmit1" class="btn w-100 fw-bold btn-primary" type="submit" style="display:none;"><i class="fas fa-save">&nbsp;&nbsp;</i>Enregistrer</button>
+                                    </div>
+                                    <div class="col">
+                                        <button id="btnAnnule" class="btn w-100 fw-bold btn-danger" style="display:none;" type="reset"><i class="fas fa-window-close">&nbsp;&nbsp;</i>Fermer</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Button to enable editing -->
+                            <button id="btnEditPassword" class="btn fw-bold w-100 btn-outline-primary"><i class="fas fa-edit">&nbsp;&nbsp;</i>Modifier</button>
+                            <div class="alert bg-warning bg-opacity-50 fade mt-1 mb-0 pb-0" id="alert" is="dmx-bs5-alert" role="alert" closable="true">
+                                <p class="fw-bold"><i class="fas fa-exclamation-triangle">&nbsp;&nbsp;</i>{{FormMotdePasse.lastError.response.message}}</p>
+                            </div>
+
+                            <script>
+                                document.getElementById('btnEditPassword').addEventListener('click', function () {
+        // Enable the form inputs
+        document.getElementById('inputOldPassword').disabled = false;
+        document.getElementById('inputNewPassword').disabled = false;
+        document.getElementById('inputNewPasswordConfirmation').disabled = false;
+        document.getElementById('inputCompteur1').disabled = false;
+
+        // Show the submit button
+        document.getElementById('btnSubmit1').style.display = 'block';
+        document.getElementById('btnAnnule').style.display = 'block';
+
+        this.style.display = 'none';
+    });
+
+
+  document.getElementById('btnAnnule').addEventListener('click', function () {
+        // Enable the form inputs
+        document.getElementById('inputOldPassword').disabled = true;
+        document.getElementById('inputNewPassword').disabled = true;
+        document.getElementById('inputNewPasswordConfirmation').disabled = true;
+        document.getElementById('inputCompteur1').disabled = true;
+
+        // Show the submit button
+        document.getElementById('btnSubmit1').style.display = 'none';
+        this.style.display = 'none';
+
+      document.getElementById('btnEditPassword').style.display = 'block';
+    });
+
+
+                            </script>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer bg-white">
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-7 mt-2 col-lg-4 col-xxl-5 col-xl-4">
+            <div class="card shadow-sm rounded-3 border">
+
+                <div class="card-header bg-white">
+                    <h6 class="text-uppercase fw-bold"><i class="fas fa-edit">&nbsp;&nbsp;</i>Mes contacts
+                    </h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col lh-1">
+                            <form id="FormContact" is="dmx-serverconnect-form" method="post" action="/api/Security/ChangeContact" dmx-on:success="modalNotif.show();Deconn.reload()" dmx-on:error="notifies.danger('Error')" dmx-on:unauthorized="Deconn.goto('/Authentification/Login')">
+                                <div class="form-group mb-3 fw-bold">
+                                    <label for="inputEmail" class="form-label"><i class="fas fa-envelope">&nbsp;&nbsp;</i>Adresse-mail</label>
+                                    <input type="email" class="form-control" id="inputEmail" name="Email" aria-describedby="input1_help" disabled required dmx-bind:value="scReadContrat.data.api.data[0].email">
+                                </div>
+                                <div class="form-group mb-3 fw-bold">
+                                    <label for="inputTel" class="form-label"><i class="fas fa-phone-alt">&nbsp;&nbsp;</i>Telephone</label>
+                                    <input type="number" class="form-control" id="inputTel" name="Tel" aria-describedby="input1_help" disabled required dmx-bind:value="scReadContrat.data.api.data[0].phone">
+                                </div>
+                                <div class="form-group mb-3 fw-bold visually-hidden">
+                                    <label for="inputCompteur" class="form-label"><i class="fas fa-pager">&nbsp;&nbsp;</i>Compteur</label>
+                                    <input class="form-control" id="inputCompteur" name="compteur" aria-describedby="input1_help" disabled required dmx-bind:value="scReadContrat.data.api.data[0].codeCompteur">
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button id="btnSubmit" class="btn w-100 fw-bold btn-primary" type="submit" style="display:none;"><i class="fas fa-save">&nbsp;&nbsp;</i>Enregistrer</button>
+                                    </div>
+                                    <div class="col">
+                                        <button id="btnAnnuleContact" class="btn w-100 fw-bold btn-danger" style="display:none;"><i class="fas fa-window-close">&nbsp;&nbsp;</i>Fermer</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <!-- Button to enable editing -->
+                            <button id="btnEdit" class="btn fw-bold w-100 btn-outline-primary"><i class="fas fa-edit">&nbsp;&nbsp;</i>Modifier</button>
+
+                            <script>
+                                document.getElementById('btnEdit').addEventListener('click', function () {
+        // Enable the form inputs
+        document.getElementById('inputEmail').disabled = false;
+        document.getElementById('inputTel').disabled = false;
+        document.getElementById('inputCompteur').disabled = false;
+
+        // Show the submit button
+        document.getElementById('btnSubmit').style.display = 'block';
+        document.getElementById('btnAnnuleContact').style.display = 'block';
+
+        // Optionally hide the Edit button
+        this.style.display = 'none';
+    });
+
+
+  document.getElementById('btnAnnuleContact').addEventListener('click', function () {
+        // Enable the form inputs
+        document.getElementById('inputEmail').disabled = true;
+        document.getElementById('inputTel').disabled = true;
+        document.getElementById('inputCompteur').disabled = true;
+
+        // Show the submit button
+        document.getElementById('btnSubmit').style.display = 'none';
+        this.style.display = 'none';
+
+      document.getElementById('btnEdit').style.display = 'block';
+    });
+
+
+
+
+                            </script>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer bg-white">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-7 mt-2 col-lg-4 col-xxl-3 col-xl-4">
+            <div class="card shadow-sm rounded-3 border">
+
+                <div class="card-header bg-white">
+                    <h6 class="text-uppercase fw-bold"><i class="fas fa-bell">&nbsp;&nbsp;</i>Notifications</h6>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col lh-1">
+                            <form id="FormContact1" method="post" is="dmx-serverconnect-form" action="/api/Security/ChangeContact" dmx-on:success="">
+                                <div class="form-group mb-3">
+                                    <label for="inputEmail1" class="form-label col-form-label col-form-label-lg" id="inputEmail1"><i class="fas fa-envelope">&nbsp;&nbsp;</i>Adresse-mail</label>
+                                    <div class="row">
+                                        <div class="col fw-bold">
+                                            <p>{{scReadContrat.data.api.data[0].email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="inputCompteur" class="form-label col-form-label col-form-label-lg"><i class="fas fa-phone-alt">&nbsp;&nbsp;</i>Telephone</label>
+                                    <div class="row">
+                                        <div class="col fw-bold">
+                                            <p>{{scReadContrat.data.api.data[0].phone}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-white">
+        <div class="col mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div class="container-fluid bg-white bg-opacity-75">
+                                <div class="container text-light rounded-1 pt-4 pb-1">
+                                    <div class="row" style=" text-align:center;">
+                                        <div class="col-6  text-right "><a class="logo " style="float:right;" href="https://play.google.com/store/apps/details?id=dj.edd.eddmobile&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img class="img-responsive img-fluid" alt="Disponible sur Google Play" style="display: block;margin-left: auto;margin-right: auto" src="https://www.edd.dj/assets/images/google-play.png"></a></div>
+                                        <div class="col-6 "><a class="logo " style="float:left;" href="https://itunes.apple.com/us/app/edd-mobile/id1459376903?l=fr&amp;ls=1&amp;mt=8"><img class="img-responsive img-fluid" alt="Disponible sur App Store" style="display: block;margin-left: auto;margin-right: auto" src="https://www.edd.dj/assets/images/app-store.png"></a></div>
+                                    </div>
+                                    <p class="text-center mt-2 text-black">Télécharger gratuitement l’application <b>Edd Mobile App</b> pour smartphone ou tablette</p>
+                                    <div class="d-flex justify-content-around text-primary-emphasis mt-3 mb-2"><a href="https://www.edd.dj/confidentialite.html">Politiuqe de confidentialité</a>
+                                        <a href="https://www.edd.dj/mention_legals.html">Mentions légales</a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<meta name="ac:route" content="/CompteEnLigne/Setting">
+
+
+
+<div class="modal border border-white bg-white bg-opacity-75" id="chargement" is="dmx-bs5-modal" tabindex="-1" dmx-bind:show="scReadContrat.state.executing" nocloseonclick="true" nokeyboard="true" nofocus="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body pb-0 text-center fw-bold">
+
+
+                <img src="/assets/images/arton142.png" class="opacity-75 img-fluid" width="60">
+                <div class="row mb-1">
+                    <div class="col mt-3 mb-2">
+                        <div class="spinner-grow text-primary" role="status">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

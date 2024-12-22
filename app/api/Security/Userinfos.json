@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ],
+    "$_COOKIE": [
+      {
+        "type": "text",
+        "name": "idClient"
+      },
+      {
+        "type": "text",
+        "name": "token"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "api",
+      "module": "api",
+      "action": "send",
+      "options": {
+        "url": "{{'http://192.168.9.60:8082/api/Contrats/payeurs/'+$_COOKIE.idClient}}",
+        "headers": {
+          "Authorization": "{{'Bearer '+$_COOKIE.token}}"
+        }
+      },
+      "output": true
+    }
+  }
+}

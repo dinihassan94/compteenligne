@@ -1,0 +1,94 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="Impayes" appconnect="local" components="{dmxBootstrap5TableGenerator:{},dmxFormatter:{},dmxDataTraversal:{},dmxBootstrap5Modal:{},dmxAnimateCSS:{},dmxValidator:{},dmxBootstrap5Navigation:{},dmxDatastore:{},dmxStateManagement:{},dmxBootstrap5PagingGenerator:{},dmxDownload:{},dmxBrowser:{}}" class="style3" -->
+
+
+
+
+
+
+<div id="printThis"></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="mw-100 container-fluid small ps-1 pe-1">
+
+
+
+
+    <div class="row me-1">
+        <div class="col-12 pe-0">
+            <p class="fw-bold mt-3 lh-lg lead text-black text-center"><i class="fas fa-tachometer-alt">&nbsp;&nbsp;</i>Dashboard&nbsp;</p>
+        </div>
+    </div>
+    <div class="row ms-0 me-0">
+        <div class="col">
+            <div class="row row-cols-lg-11">
+                <div class="border-success small offset-0 ms-lg-0 rounded-0 col-sm-12 col-lg-12" style="min-height: 79vh;height: auto;">
+
+
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col">
+                            <%- await include('/partials/contratDetails', Object.assign({}, locals)) %></div>
+                    </div>
+                    <div class="row bg-white">
+                        <div class="col mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="container-fluid bg-white bg-opacity-75">
+                                                <div class="container text-light rounded-1 pt-4 pb-1">
+                                                    <div class="row" style=" text-align:center;">
+                                                        <div class="col-6  text-right "><a class="logo " style="float:right;" href="https://play.google.com/store/apps/details?id=dj.edd.eddmobile&amp;pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img class="img-responsive img-fluid" alt="Disponible sur Google Play" style="display: block;margin-left: auto;margin-right: auto" src="https://www.edd.dj/assets/images/google-play.png"></a></div>
+                                                        <div class="col-6 "><a class="logo " style="float:left;" href="https://itunes.apple.com/us/app/edd-mobile/id1459376903?l=fr&amp;ls=1&amp;mt=8"><img class="img-responsive img-fluid" alt="Disponible sur App Store" style="display: block;margin-left: auto;margin-right: auto" src="https://www.edd.dj/assets/images/app-store.png"></a></div>
+                                                    </div>
+                                                    <p class="text-center mt-2 text-black">Télécharger gratuitement l’application <b>Edd Mobile App</b> pour smartphone ou tablette</p>
+                                                    <div class="d-flex justify-content-around text-primary-emphasis mt-3 mb-2"><a href="https://www.edd.dj/confidentialite.html">Politiuqe de confidentialité</a>
+                                                        <a href="https://www.edd.dj/mention_legals.html">Mentions légales</a>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-5 pb-5">
+                            <div class="d-block">
+                                <img src="/assets/images/edd1.jpg" class="img-fluid img-thumbnail mt-4 d-lg-none mt-md-4 mt-sm-4">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<meta name="ac:route" content="/CompteEnLigne/Dashboard">

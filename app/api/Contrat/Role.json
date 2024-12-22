@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idcontrat"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "Role",
+      "module": "dbupdater",
+      "action": "custom",
+      "options": {
+        "connection": "edbdev",
+        "sql": {
+          "query": "SELECT RL.NUM_CONTRAT, CL.ID_CLIENT, CL.NOM, RL.TYPE_ROLE, TV.LIB_COURT \nFROM ROLE RL, CLIENT CL, TABLES_VALEURS TV \nWHERE RL.NUM_CLIENT = CL.ID_CLIENT AND RL.TYPE_ROLE = TV.ID_LIGNE \nAND RL.NUM_CONTRAT = ?",
+          "params": [
+            {
+              "name": ":P1",
+              "value": "{{$_GET.idcontrat}}"
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "name": "num_contrat",
+          "type": "number"
+        },
+        {
+          "name": "id_client",
+          "type": "number"
+        },
+        {
+          "name": "nom",
+          "type": "text"
+        },
+        {
+          "name": "type_role",
+          "type": "number"
+        },
+        {
+          "name": "lib_court",
+          "type": "text"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
